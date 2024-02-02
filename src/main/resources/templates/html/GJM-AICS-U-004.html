@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />
+    <meta name="theme-color" content="#2D316C" />
+    <title>광주광역시 AI 영상 클리핑 시스템</title>
+    <link rel="stylesheet" type="text/css" href="../share/css/lightslider.css">
+    <link rel="stylesheet" type="text/css" href="../share/css/style.css">
+    <script type="text/javascript" src="../share/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../share/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../share/js/placeholder.js"></script>
+    <script type="text/javascript" src="../share/js/jquery.ellipsis.js"></script>
+    <script type="text/javascript" src="../share/js/owl.carousel.js"></script>
+    <script type="text/javascript" src="../share/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../share/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="../share/js/jstree.js"></script>
+    <script type="text/javascript" src="../share/js/swiper.min.js"></script>
+    <script type="text/javascript" src="../share/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../share/js/tui-pagination.js"></script>
+    <script type="text/javascript" src="../share/js/ui.js"></script>
+    <script>
+        $(function() {
+            // datatables 시작
+            new DataTable('#grid', {
+                // scrollY: 300,
+                paging: true,
+            } );
+            // datatables 끝
+        });
+    </script>
+</head>
+
+<body>
+    <div id="wrap" class="user-wrap">
+        <div class="inner">
+            <div class="header">
+                <div class="hd-ft">
+                    <button class="mobile-menu-btn"><span></span></button>
+                    <a href="GJM-AICS-002-01.html" class="logo">
+                        <img src="../share/image/contents/img-main-logo.png" alt="logo">
+                    </a>
+                </div>
+                <ul class="menu">
+                    <li>
+                        <a href="#none">클립영상검색</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">이용신청내역</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">클립영상이용</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="utill">
+                    <li class="manager">사용자<b>홍길동</b>님</li>
+                    <li class="alarm dot"><a href=""><span></span></a></li>
+                    <li class="mypage"><a href="">내정보관리</a></li>
+                    <li class="logout"><a href="">로그아웃</a></li>
+                </ul>
+            </div>
+            <div class="contents">
+                <div class="gd-inner">
+                    <div class="big-tit">클립 영상 검색</div>
+                    <div class="srch-container">
+                        <div class="int-area">
+                            <div>
+                                <label class="form-label">정렬</label>
+                                <select class="form-select">
+                                    <option selected>최신순</option>
+                                    <option value="1">제목</option>
+                                    <option value="2">내용</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">식별개체</label>
+                                <ul class="in-flx chk-box">
+                                    <li>
+                                        <input class="form-check-input check-all" type="checkbox" id="ck01">
+                                        <label class="form-check-label" for="ck01">전체</label>
+                                    </li>
+                                    <li>
+                                        <input class="form-check-input" type="checkbox" id="ck02">
+                                        <label class="form-check-label" for="ck02">사람</label>
+                                    </li>
+                                    <li>
+                                        <input class="form-check-input" type="checkbox" id="ck03">
+                                        <label class="form-check-label" for="ck03">개</label>
+                                    </li>
+                                    <li>
+                                        <input class="form-check-input" type="checkbox" id="ck04">
+                                        <label class="form-check-label" for="ck04">고양이</label>
+                                    </li>
+                                    <li>
+                                        <input class="form-check-input" type="checkbox" id="ck05">
+                                        <label class="form-check-label" for="ck05">자동차</label>
+                                    </li>
+                                    <li>
+                                        <input class="form-check-input" type="checkbox" id="ck06">
+                                        <label class="form-check-label" for="ck06">오토바이</label>
+                                    </li>
+                                    <li>
+                                        <input class="form-check-input" type="checkbox" id="ck07">
+                                        <label class="form-check-label" for="ck07">휠체어</label>
+                                    </li>
+                                    <li>
+                                        <input class="form-check-input" type="checkbox" id="ck08">
+                                        <label class="form-check-label" for="ck08">유모차</label>
+                                    </li>
+                                    <li>
+                                        <input class="form-check-input" type="checkbox" id="ck09">
+                                        <label class="form-check-label" for="ck09">번호판</label>
+                                    </li>
+                                    <li>
+                                        <input class="form-check-input" type="checkbox" id="ck10">
+                                        <label class="form-check-label" for="ck10">불꽃</label>
+                                    </li>
+                                    <li>
+                                        <input class="form-check-input" type="checkbox" id="ck11">
+                                        <label class="form-check-label" for="ck11">연기</label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <label class="form-label">논리연산</label>
+                                <div class="in-flx rd-box">
+                                    <div>
+                                        <input class="form-check-input" type="radio" id="rd01" name="rd">
+                                        <label class="form-check-label" for="rd01">AND</label>
+                                    </div>
+                                    <div>
+                                        <input class="form-check-input" type="radio" id="rd02" name="rd">
+                                        <label class="form-check-label" for="rd02">OR</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="form-label">상태</label>
+                                <select class="form-select">
+                                    <option selected>전체</option>
+                                    <option value="1">상태01</option>
+                                    <option value="2">상태02</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">기간</label>
+                                <div class="in-flx">
+                                    <input type="text" id="datepickerStart" class="form-control dtpk">
+                                    <span>~</span>
+                                    <input type="text" id="datepickerEnd" class="form-control dtpk">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-box">
+                            <button type="button" class="btn blue">검색</button><button type="button" class="btn navy">조건초기화</button>
+                        </div>
+                    </div>
+                    <div class="grid-top-comp-area">
+                        <span>총 <b>320</b>건</span><button type="button" class="btn orange cart">이용신청</button>
+                    </div>
+                    <table id="grid">
+                        <colgroup>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>순번</th>
+                                <th>클립 영상 파일명</th>
+                                <th>식별객체</th>
+                                <th>클립 생성일</th>
+                                <th>클립 영상 크기</th>
+                                <th>비식별화 영상 크기</th>
+                                <th>학습용 썸네일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="t-ctr">10</td>
+                                <td>20230901_CCTV0001_0001</td>
+                                <td>사람</td>
+                                <td class="t-ctr">2023.11.03 11:00:00</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">2 개</td>
+                            </tr>
+                            <tr>
+                                <td class="t-ctr">10</td>
+                                <td>20230901_CCTV0001_0001</td>
+                                <td>사람</td>
+                                <td class="t-ctr">2023.11.03 11:00:00</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">2 개</td>
+                            </tr>
+                            <tr>
+                                <td class="t-ctr">10</td>
+                                <td>20230901_CCTV0001_0001</td>
+                                <td>사람</td>
+                                <td class="t-ctr">2023.11.03 11:00:00</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">2 개</td>
+                            </tr>
+                            <tr>
+                                <td class="t-ctr">10</td>
+                                <td>20230901_CCTV0001_0001</td>
+                                <td>사람</td>
+                                <td class="t-ctr">2023.11.03 11:00:00</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">2 개</td>
+                            </tr>
+                            <tr>
+                                <td class="t-ctr">10</td>
+                                <td>20230901_CCTV0001_0001</td>
+                                <td>사람</td>
+                                <td class="t-ctr">2023.11.03 11:00:00</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">2 개</td>
+                            </tr>
+                            <tr>
+                                <td class="t-ctr">10</td>
+                                <td>20230901_CCTV0001_0001</td>
+                                <td>사람</td>
+                                <td class="t-ctr">2023.11.03 11:00:00</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">2 개</td>
+                            </tr>
+                            <tr>
+                                <td class="t-ctr">10</td>
+                                <td>20230901_CCTV0001_0001</td>
+                                <td>사람</td>
+                                <td class="t-ctr">2023.11.03 11:00:00</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">2 개</td>
+                            </tr>
+                            <tr>
+                                <td class="t-ctr">10</td>
+                                <td>20230901_CCTV0001_0001</td>
+                                <td>사람</td>
+                                <td class="t-ctr">2023.11.03 11:00:00</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">2 개</td>
+                            </tr>
+                            <tr>
+                                <td class="t-ctr">10</td>
+                                <td>20230901_CCTV0001_0001</td>
+                                <td>사람</td>
+                                <td class="t-ctr">2023.11.03 11:00:00</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">2 개</td>
+                            </tr>
+                            <tr>
+                                <td class="t-ctr">10</td>
+                                <td>20230901_CCTV0001_0001</td>
+                                <td>사람</td>
+                                <td class="t-ctr">2023.11.03 11:00:00</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">2 개</td>
+                            </tr>
+                            <tr>
+                                <td class="t-ctr">10</td>
+                                <td>20230901_CCTV0001_0001</td>
+                                <td>사람</td>
+                                <td class="t-ctr">2023.11.03 11:00:00</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">8.3 MB</td>
+                                <td class="t-rgt">2 개</td>
+                            </tr>
+                        </tbody>
+                    </table> <!-- 그리드 div -->
+                </div>
+            </div>
+            <div class="footer">
+                Copyright ⓒ 2024 Gwangju Metropolitan City. All Rights Reserved.
+            </div>
+        </div>
+    </div>
+</body>
+<link rel="stylesheet" href="../share/css/tui-custom.css" />
+</html>

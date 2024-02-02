@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<!-- Head & 공통 resource -->
+<th:block th:fragment="headFragment">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes,initial-scale=1.0"/>
+        <meta name="theme-color" content="#2D316C" />
+        <meta th:name="_csrf" th:content="${_csrf.token}">
+        <meta th:name="_csrf_header" th:content="${_csrf.headerName}">
+
+        <title>광주광역시 AI 영상 클리핑 시스템</title>
+
+        <link rel="stylesheet" type="text/css" th:href="@{/css/lightslider.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/tui-custom.css}" />
+
+        <link rel="icon" href="data:,">
+
+        <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/jquery-ui.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/placeholder.js}"></script>
+        <script type="text/javascript" th:src="@{/js/jquery.ellipsis.js}"></script>
+        <script type="text/javascript" th:src="@{/js/owl.carousel.js}"></script>
+        <script type="text/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/moment.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/moment-locale-ko.js}"></script>
+        <script type="text/javascript" th:src="@{/js/bootstrap-datepicker.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/bootstrap-datepicker.ko.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/bootstrap-datetimepicker.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/toastui-chart.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/jstree.js}"></script>
+        <script type="text/javascript" th:src="@{/js/swiper.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/ui.js}"></script>
+        <script type="text/javascript" th:src="@{/js/custom.js}"></script>
+        <script type="text/javascript" th:src="@{/js/dataTableModule.js}"></script>
+
+        <!-- message 알림 라이브러리 -->
+        <script type="text/javascript" th:src="@{/plugins/sweetalert2/sweetalert2.js}"></script>
+        <link rel="stylesheet" type="text/css" th:href="@{/plugins/sweetalert2/sweetalert2.css}" />
+
+
+    </head>
+</th:block>
+</html>

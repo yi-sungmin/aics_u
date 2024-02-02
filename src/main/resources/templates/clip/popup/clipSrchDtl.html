@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="clipSrchDtl">
+    <div class="popup dtl" style="display: none; width: 950px;">
+        <div class="tit">
+            <span>이용자 등록 신청 조회</span>
+            <button class="x-btn" onclick="popClose('.dtl')"></button>
+        </div>
+        <div class="container">
+            <div class="sub-tit">이용 신청 정보</div>
+            <form id="dtl-form">
+                <div class="result-container mgb30">
+                    <input type="hidden" id="dtl-clipId" name="clipId">
+                    <input type="hidden" id="dtl-fileId" name="fileId">
+                    <input type="hidden" id="dtl-thumbCnt" name="thumbCnt">
+                    <table>
+                        <tr>
+                            <th>클립 영상 파일명</th>
+                            <td>
+                                <span id="dtl-fileNm" name="fileNm"></span>
+                            </td>
+                            <th>식별 객체</th>
+                            <td>
+                                <span id="dtl-objectType" name="objectType"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>클립 영상 크기</th>
+                            <td>
+                                <span id="dtl-clipSize-tmp"></span>
+                                <input type="hidden" id="dtl-clipSize" name="clipSize"></input>
+                            </td>
+                            <th>클립 생성 일시</th>
+                            <td>
+                                <span id="dtl-createDtm" name="createDtm"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>비식별화 파일 크기</th>
+                            <td>
+                                <span id="dtl-maskSize-tmp"></span>
+                                <input type="hidden" id="dtl-maskSize" name="maskSize"></input>
+                            </td>
+                            <th>비식별화 파일 생성일</th>
+                            <td>
+                                <span id="dtl-maskCreateDtm" name="maskCreateDtm"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+            <div>
+                <div class="sub-t-add">
+                    <div class="sub-tit">학습용 썸네일 정보</div>
+                </div>
+                <table id="dtlGrid">
+                    <thead>
+                    <tr>
+                        <th rowspan="2">썸네일 이미지 파일명</th>
+                        <th rowspan="2">식별 객체</th>
+                        <th rowspan="2">파일 생성일</th>
+                        <th colspan="4">Bounding Box 정보</th>
+                    </tr>
+                    <tr>
+                        <th>left</th>
+                        <th>top</th>
+                        <th>right</th>
+                        <th>bottom</th>
+                    </tr>
+                    </thead>
+                </table> <!-- 그리드 div -->
+            </div>
+            <div class="btn-box-bottom mgt30">
+                <button type="button" class="btn blue" id="dtl-btnAddCart">이용 신청 추가</button>
+                <button type="button" class="btn gray" id="dtl-btnCancel" th:onclick="popClose('.popup')">닫기</button>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

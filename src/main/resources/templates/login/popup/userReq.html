@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="userReq">
+    <div class="popup user-wrap req" style="display: none;">
+        <div class="tit">
+            <span id="req-title">이용자 등록 신청</span>
+            <button class="x-btn" onclick="popClose('.popup')"></button>
+        </div>
+        <div class="container">
+            <div class="result-container mgb30">
+                <form id="req-form">
+                    <table>
+                        <tr>
+                            <th>유형</th>
+                            <td>
+                                <select class="form-select" id="req-typeId" name="typeId">
+                                    <option th:each="option : ${userDivType}"
+                                            th:value="${option.typeId}"
+                                            th:text="${option.typeNm}">
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>소속명</th>
+                            <td>
+                                <input type="text" class="form-control-sm" id="req-orgNm" name="orgNm">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이용자명</th>
+                            <td>
+                                <input type="text" class="form-control-sm" id="req-userNm" name="userNm">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>아이디</th>
+                            <td>
+                                <div>
+                                    <input type="text" class="form-control-sm" id="req-userId" name="userId">
+                                    <button th:type="button" class="btn blue" id="btnCheckId">중복확인</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>비밀번호</th>
+                            <td>
+                                <input type="password" class="form-control-sm" id="req-passwd" name="passwd">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>비밀번호 확인</th>
+                            <td>
+                                <input type="password" class="form-control-sm" id="req-confPasswd" name="confPasswd">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>연락처</th>
+                            <td>
+                                <input type="text" id="req-telNo1" class="form-control-sm" style="width:75px;" th:maxlength="3" oninput="moveFocus(this, 'req-telNo2')">
+                                -
+                                <input type="text" id="req-telNo2" class="form-control-sm" style="width:75px;" th:maxlength="4" oninput="moveFocus(this, 'req-telNo3')">
+                                -
+                                <input type="text" id="req-telNo3" class="form-control-sm" style="width:75px;" th:maxlength="4">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이메일주소</th>
+                            <td>
+                                <input type="text" class="form-control-sm" id="req-emailAddr1">
+                                @
+                                <input type="text" class="form-control-sm" id="req-emailAddr2">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이용 시작시간</th>
+                            <td>
+                                <div>
+                                    <input type="text"
+                                           class="form-control-sm dtpk mgr5"
+                                           id="req-startDate">
+                                    <select id="req-startHour" class="form-select-sm mgr5">
+                                        <option th:each="hour : ${#numbers.sequence(0, 23)}"
+                                                th:value="${hour < 10 ? '0' + hour : hour}"
+                                                th:text="${hour < 10 ? '0' + hour : hour}"></option>
+                                    </select>
+                                    <strong style="preqing: 3px 0; margin-right: 5px;">:</strong>
+                                    <select id="req-startMin" class="form-select-sm mgr5">
+                                        <option th:each="min : ${#numbers.sequence(0, 59)}"
+                                                th:value="${min < 10 ? '0' + min : min}"
+                                                th:text="${min < 10 ? '0' + min : min}"></option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이용 종료시간</th>
+                            <td>
+                                <div>
+                                    <input type="text"
+                                           class="form-control-sm dtpk mgr5"
+                                           id="req-endDate">
+                                    <select id="req-endHour" class="form-select-sm mgr5">
+                                        <option th:each="hour : ${#numbers.sequence(0, 23)}"
+                                                th:value="${hour < 10 ? '0' + hour : hour}"
+                                                th:text="${hour < 10 ? '0' + hour : hour}"></option>
+                                    </select>
+                                    <strong style="padding: 3px 0; margin-right: 5px;">:</strong>
+                                    <select id="req-endMin" class="form-select-sm mgr5">
+                                        <option th:each="min : ${#numbers.sequence(0, 59)}"
+                                                th:value="${min < 10 ? '0' + min : min}"
+                                                th:text="${min < 10 ? '0' + min : min}"></option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이용목적</th>
+                            <td>
+                                <textarea id="req-purpose" name="purpose" rows="2"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="btn-box-bottom mgt30">
+                <button type="button" class="btn blue mgr10" id="req-btnCreate">신청</button>
+                <button type="button" class="btn gray" id="req-btnCancel" onclick="popClose('.popup')">닫기</button>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

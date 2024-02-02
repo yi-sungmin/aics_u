@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="userAdd">
+    <div class="popup add" style="display: none;">
+        <div class="tit"><span>이용자 등록</span>
+            <button class="x-btn" onclick="popClose('.add')"></button>
+        </div>
+        <div class="container">
+            <div class="result-container mgb30">
+                <form id="add-form">
+                    <table>
+                        <tr>
+                            <th>유형</th>
+                            <td>
+                                <select class="form-select" id="add-typeId" name="typeId">
+                                    <option value="">전체</option>
+                                    <option th:each="option : ${userDivType}" th:value="${option.typeId}" th:text="${option.typeNm}">
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>소속명</th>
+                            <td>
+                                <input type="text" class="form-control-sm" id="add-orgNm" name="orgNm">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이용자명</th>
+                            <td>
+                                <input type="text" class="form-control-sm" id="add-userNm" name="userNm">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>아이디</th>
+                            <td>
+                                <div>
+                                    <input type="text" class="form-control-sm" id="add-userId" name="userId">
+                                    <button th:type="button" class="btn blue" id="btnCheckId">중복확인</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>비밀번호</th>
+                            <td>
+                                <div>
+                                    <input type="text" class="form-control-sm" id="add-passwd" name="passwd">
+                                    <button th:type="button" class="btn blue" id="btnGenPw" th:onclick="generatePasswd('add-passwd')">자동생성</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>연락처</th>
+                            <td>
+                                <input type="text" id="add-telNo1" class="form-control-sm" style="width:75px;">
+                                -
+                                <input type="text" id="add-telNo2" class="form-control-sm" style="width:75px;">
+                                -
+                                <input type="text" id="add-telNo3" class="form-control-sm" style="width:75px;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이메일주소</th>
+                            <td>
+                                <input type="text" class="form-control-sm" id="add-emailAddr1">
+                                @
+                                <input type="text" class="form-control-sm" id="add-emailAddr2">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이용 시작시간</th>
+                            <td>
+                                <div>
+                                    <input type="text"
+                                           class="form-control-sm dtpk mgr5"
+                                           id="add-startDate">
+                                    <select id="add-startHour" class="form-select-sm mgr5">
+                                        <option th:each="hour : ${#numbers.sequence(0, 23)}"
+                                                th:value="${hour < 10 ? '0' + hour : hour}"
+                                                th:text="${hour < 10 ? '0' + hour : hour}"></option>
+                                    </select>
+                                    <strong style="padding: 3px 0; margin-right: 5px;">:</strong>
+                                    <select id="add-startMin" class="form-select-sm mgr5">
+                                        <option th:each="min : ${#numbers.sequence(0, 59)}"
+                                                th:value="${min < 10 ? '0' + min : min}"
+                                                th:text="${min < 10 ? '0' + min : min}"></option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이용 종료시간</th>
+                            <td>
+                                <div>
+                                    <input type="text"
+                                           class="form-control-sm dtpk mgr5"
+                                           id="add-endDate">
+                                    <select id="add-endHour" class="form-select-sm mgr5">
+                                        <option th:each="hour : ${#numbers.sequence(0, 23)}"
+                                                th:value="${hour < 10 ? '0' + hour : hour}"
+                                                th:text="${hour < 10 ? '0' + hour : hour}"></option>
+                                    </select>
+                                    <strong style="padding: 3px 0; margin-right: 5px;">:</strong>
+                                    <select id="add-endMin" class="form-select-sm mgr5">
+                                        <option th:each="min : ${#numbers.sequence(0, 59)}"
+                                                th:value="${min < 10 ? '0' + min : min}"
+                                                th:text="${min < 10 ? '0' + min : min}"></option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이용목적</th>
+                            <td>
+                                <textarea id="add-purpose" name="purpose" rows="2"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="btn-box-bottom mgt30">
+                <button type="button" class="btn blue mgr10" id="add-btnCreate">등록</button>
+                <button type="button" class="btn gray" id="add-btnCancel" onclick="popClose('.add')">닫기</button>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

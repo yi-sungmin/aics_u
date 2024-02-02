@@ -1,0 +1,626 @@
+/* PC에서만 사용 */
+@media (min-width: 1181px) {}
+
+/* 1600*900 */
+@media (max-width: 1600px) {
+    .header .hd-ft img{
+        height: 26px;
+    }
+
+    .header .menu > li > a{
+        font-size: 1em;
+        padding: 0 18px;
+    }
+
+    .header .menu > li > ul li a{
+        font-size: .8em;
+    }
+
+    .utill > li.manager{
+        font-size: 1em;
+        margin-right: 0;
+    }
+
+    .utill > li > a{
+        text-indent: -9999ex;
+        width: 32px;
+        height: 32px;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .utill .manager{
+        display: none;
+    }
+
+    .utill .mypage a{
+        background-image: url(../image/common/ico-setting.png);
+    }
+
+    .utill .logout a{
+        background-image: url(../image/common/ico-logout.png);
+    }
+
+    .contents .main-inner .box .head > span:first-child{
+        font-size: 1em;
+    }
+
+    .contents .main-inner .box .head .add{
+        font-size: .93em;
+    }
+
+    .contents .main-inner .box .num-cont > ul > li > ul b{
+        font-size: 1.47em;
+    }
+
+    .contents .main-inner .box .num-cont{
+        gap: 20px;
+    }
+
+    .contents .main-inner .box .num-cont > ul{
+        gap: 20px;
+    }
+
+    .contents .main-inner .box .num-cont > ul:first-child{
+        padding-right: 20px;
+    }
+
+    .gd-inner .srch-container .int-area{
+        flex-wrap: wrap;
+    }
+
+    .btn-box > button{
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .btn-box > button:last-child{
+        margin-bottom: 0;
+    }
+
+    .dan-two-box .btn-box > button{
+        width: auto;
+        margin-right: 10px;
+        margin-bottom: 0;
+    }
+
+    .dan-two-box .btn-box > button:last-child{
+        margin-right: 0;
+    }
+    /* 20240105 ntj 추가 */
+    .utill li.timeout span {
+        display: none;
+    }
+    .utill li.timeout strong {
+        margin-left: 0;
+    }
+}
+
+/* 1366*768 */
+@media (max-width: 1366px) {
+    .header .hd-ft img{
+        height: 22px;
+    }
+
+    .contents .main-inner .box .num-cont > ul{
+        display: block;
+    }
+
+    .contents .main-inner .box .num-cont .tit{
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    .contents .main-inner .box .num-cont > ul > li > ul{
+        text-align: left;
+    }
+
+    .contents .main-inner .box .num-cont > ul:first-child{
+        padding-right: 40px;
+    }
+
+    .contents .main-inner .box .num-cont > ul > li > ul > li:first-child{
+        margin-bottom: -4px;
+    }
+
+    .contents .main-inner .box .num-cont{
+        gap: 40px;
+    }
+}
+
+/* 1280px 미만 */
+@media (max-width: 1279px) {
+    .gd-inner{
+        height: auto;
+    }
+
+    .dan-two-box{
+        display: block;
+        height: 100%;
+    }
+
+    .dan-two-box > div{
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .dan-two-box .srch-container{
+        margin-bottom: -1px;
+    }
+}
+
+/* 1024px 이하 태블릿 */
+@media (max-width: 1024px){
+    .user-intro-content{
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .user-intro-content a{
+        width: 350px;
+        height: auto;
+        flex-direction: row;
+        justify-content: left;
+        padding: 20px;
+        padding-left: 20px;
+        border-radius: 10px;
+    }
+
+    .user-intro-content a:hover{
+        transform: none;
+    }
+
+    .user-intro-content a img{
+        width: 30px;
+        height: 30px;
+        margin-bottom: 0;
+        margin-right: 10px;
+    }
+
+    .user-intro-content a p{
+        margin-top: 5px;
+    }
+
+    /* LNB 이동 */
+    .header{
+        padding: 0 20px;
+    }
+
+    .header .hd-ft .mobile-menu-btn{
+        display: block;
+    }
+
+    .header .hd-ft .logo{
+        margin-left: 40px;
+    }
+
+    .header .hd-ft img{
+        height: 28px;
+    }
+
+    .header .utill{
+        z-index: 10000;
+    }
+
+    .header .menu{
+        position: fixed;
+        left: -100%;
+        top: 60px;
+        width: 100%;
+        height: calc(100% - 60px - 30px);
+        overflow-y: auto;
+        transition: all .4s;
+        display: block;
+        z-index: 9000;
+    }
+
+    .header .menu > li{
+        margin-left: 20px;
+        width: 240px;
+    }
+
+    .header .menu > li:first-child{
+        margin-top: 20px;
+    }
+
+    .header .menu::before{
+        content: '';
+        display: block;
+        position: absolute;
+        width: 30%;
+        min-width: 280px;
+        height: 100%;
+        background-color: #f7f7f7;
+        box-shadow: 5px 0 7px rgba(0, 0, 0, .15);
+    }
+
+    .header .menu::after{
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -1;
+    }
+
+    body.active .header .menu{
+        left: 0;
+    }
+
+    .header .menu > li{
+        height: auto;
+    }
+
+    .header .menu > li > a{
+        width: 100%;
+        padding: 10px;
+        display: block;
+        color: #333;
+        font-size: 1.07em;
+        font-weight: 500;
+        position: relative;
+    }
+
+    .header .menu > li > a::after{
+        content: '';
+        display: inline-block;
+        width: 13px;
+        height: 8px;
+        background: url(../image/common/ico-arrow.png) no-repeat center;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: all .4s;
+    }
+
+    .header .menu > li.active > a::after{
+        transform: translateY(-50%) rotate(-180deg);
+    }
+
+    .header .menu > li > ul{
+        display: block;
+        position: relative;
+        box-shadow: none;
+        padding: 10px;
+        display: none;
+    }
+
+    .header .menu > li > ul li a{
+        font-size: 1em;
+    }
+
+    /* LNB 이동 끝*/
+
+    .contents .num-box,
+    .contents .graph-box{
+        display: block;
+        height: auto;
+    }
+
+    .contents .num-box > div,
+    .contents .graph-box > div{
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .contents .num-box > div:last-child,
+    .contents .graph-box > div:last-child{
+        margin-bottom: 0;
+    }
+
+    .contents .main-inner .box .num-cont > ul{
+        display: flex;
+    }
+
+    .footer{
+        padding-left: 20px;
+    }
+
+    .gd-inner .srch-container .int-area{
+        margin-bottom: 20px;
+    }
+
+    .gd-inner .srch-container .int-area .in-flx{
+        flex-wrap: wrap;
+    }
+
+    .gd-inner .dan-two-box .srch-container .int-area{
+        margin-bottom: 0;
+    }
+
+    .popup .thumb-img img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .popup .srch-container .int-area .in-flx{
+        flex-wrap: wrap;
+    }
+
+    .sorting-grid-box{
+        flex-direction: column;
+    }
+
+    .sorting-grid-box > div:first-child,
+    .sorting-grid-box > div:last-child{
+        width: 100%
+    }
+
+    .popup{
+        width: 100%;
+        max-width: 95%;
+    }
+
+    .popup .arrow-btn-box{
+        margin: 0;
+        transform: rotate(-90deg) scaleX(-1);
+    }
+
+    .user-wrap .header .menu > li > a{
+        color: #222;
+    }
+
+    /* 20240108 nth 추가 */
+    .header .menu > li > ul li a {
+        white-space: normal;
+    }
+}
+
+/* 768px 이하 모바일 */
+@media (max-width: 768px){
+    .contents{
+        padding: 20px;
+    }
+
+    .contents .main-inner .box .num-cont > ul{
+        display: block;
+    }
+
+    .gd-inner .srch-container{
+        display: block;
+    }
+
+    .gd-inner .srch-container .int-area > div,
+    .gd-inner .srch-container .int-area .in-flx,
+    .gd-inner .srch-container .int-area .form-control.dtpk{
+        width: 100%;
+    }
+
+    .gd-inner .srch-container .int-area .form-control.dtpk+span{
+        display: none;
+    }
+
+    .gd-inner .dan-two-box .srch-container .int-area{
+        margin-bottom: 20px;
+    }
+
+    .dan-two-box .btn-box > button{
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .dan-two-box .btn-box > button:last-child{
+        margin-bottom: 0;
+    }
+
+    .srch-container.only-one-btn button{
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .popup .container .thumb-list li{
+        display: block;
+    }
+
+    .popup .container .thumb-list li{
+        margin-bottom: 10px;
+    }
+
+    .dataTables_wrapper .dataTables_info,
+    .dataTables_wrapper .dataTables_paginate {
+        position: sticky;
+        left: 1px;
+        justify-content: center;
+    }
+
+    /* 20240109 ntj 추가 */
+    .utill{
+        position: fixed;
+        left: -100%;
+        bottom: 30px;
+        z-index: 100;
+        padding: 10px 0;
+        border-top: 1px dashed #2C3D5B;
+        transition: all .4s;
+    }
+
+    body.active .utill{
+        left: 20px;
+    }
+
+    .utill .manager{
+        display: block;
+        color: #333;
+    }
+
+    .utill .manager b{
+        color: #333;
+    }
+
+    .utill > li > a,
+    .utill > li.alarm > a{
+        background-color: #2C3D5B;
+        border-color: #2C3D5B;
+    }
+
+    .utill {
+        width: 240px;
+        flex-wrap: wrap;
+        row-gap: 12px;
+    }
+    .utill li {
+        white-space: nowrap;
+    }
+    .utill li.timeout,
+    .utill li.manager {
+        flex: 0 0 100%;
+    }
+    .utill li.timeout * {
+        color:#333;
+    }
+}
+
+/* 480px 이하 모바일 */
+@media (max-width: 480px){
+    .login-container{
+        width: 100%;
+    }
+
+    .login-logo p:last-child{
+        font-size: 2.13em;
+    }
+
+    .login-content{
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+        padding-top: 30px;
+        border-radius: 0;
+        border-top: 1px dashed #808080;
+    }
+
+    .login-content .tit,
+    .login-content .form-check-label{
+        color: #232327;
+    }
+
+    .login-content .form-control,
+    .login-content .btn{
+        font-size: 1.07em;
+    }
+
+    .login-content .form-control{
+        border: 1px solid #2C3D5B;
+    }
+
+    .user-intro-content a{
+        width: 270px;
+    }
+
+    .popup .container{
+        padding: 16px;
+    }
+
+    .popup .srch-container .int-area > div{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .user-wrap .utill{
+        border-color: #283EAE;
+    }
+
+    .user-wrap .utill > li > a,
+    .user-wrap .utill > li.alarm > a{
+        background-color: #283EAE;
+        border-color: #283EAE;
+    }
+}
+
+/* 360px 이하 모바일 */
+@media (max-width: 360px) {
+    .login-container{
+        padding: 0 10px;
+    }
+
+    .login-logo p:last-child{
+        font-size: 1.47em;
+        letter-spacing: -2px;
+    }
+
+    .login-content .tit{
+        font-size: 1.2em;
+        letter-spacing: 0;
+    }
+
+    .user-intro-content a{
+        width: 100%;
+        font-size: 1em;
+        margin-top: 3px;
+    }
+
+    .footer{
+        font-size: .67em;
+    }
+
+    .popup .container .int-box .form-control.rock{
+        background-image: none;
+    }
+}
+
+/* 280px 이하 모바일 */
+@media (max-width: 280px) {
+    .header{
+        padding: 14px;
+    }
+
+    .header .hd-ft .mobile-menu-btn{
+        left: 14px;
+    }
+
+    .header .hd-ft img{
+        height: 22px;
+    }
+
+    .header .menu{
+        min-width: 100%;
+        box-shadow: none;
+    }
+
+    .contents{
+        padding: 14px;
+    }
+
+    .contents .main-inner .box .head{
+        padding: 0 12px;
+    }
+
+    .contents .main-inner .box .num-cont > ul:first-child{
+        padding-right: 18px;
+    }
+
+    .contents .main-inner .box .num-cont{
+        gap: 18px;
+    }
+
+    .contents .main-inner .box .num-cont > ul > li > ul b{
+        font-size: 1.2em;
+    }
+
+    .footer{
+        padding-left: 14px;
+    }
+}
+
+/*********************************** 화면 높이 기준 ***********************************/
+
+/* 1600*900 */
+@media (max-height: 850px) {}
+
+@media (max-height: 757px) {}
+
+/* 1366*768 */
+@media (max-height: 625px) {}
+
+/* 480px 이하 모바일 */
+@media (max-width: 480px) {}
+
+/* 332px 이하 모바일 (가로모드) */
+@media (max-height: 360px) {}

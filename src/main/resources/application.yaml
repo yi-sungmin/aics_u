@@ -1,0 +1,21 @@
+# active profiles
+spring:
+  profiles:
+    active: local
+  thymeleaf:
+    cache: false
+  messages:
+    basename: messages
+    locale: ko
+  lifecycle:
+    timeout-per-shutdown-phase: 10s
+
+# mybatis
+mybatis:
+  mapper-locations: mybatis/mappers/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.nobiz.aics_u.model.dto.**
+
+
+

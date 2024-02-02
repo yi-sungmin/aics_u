@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{common/layout/default-layout}"
+      layout:fragment="content">
+
+<head>
+</head>
+<script th:inline="javascript">
+    const globalStorage = new GlobalStorage();
+    $(function () {
+        /* 클립 이용 정책 */
+        let policy = /*[[${policy}]]*/ null;
+        if (policy) {
+            /* 글로벌 객체 */
+            globalStorage.set('policy', policy);
+        } else {
+            globalStorage.set('policy', null);
+        }
+
+        /* 팝업 날짜 세팅 */
+        AICS.renderRangePicker('req-startDate', 'req-endDate');
+
+        /* 클립 영상 검색 그리드 */
+        searchData("init");
+
+        /* 클립 상세 보기 팝업 그리드 */
+        renderDataTable('#dtlGrid', '/clip-srch/findAllThumbById', {clipId: 0}, getDtlColumns(), null);
+
+        /* 장바구니 팝업 그리드 */
+        let cartTable = $('#cartGrid').DataTable({
+            deferRender: false,
+            processing: false,
+            serverSide: false,
+            columns: getCartColumns()
+        });
+
+        /* 이용신청 팝업 그리드 */
+        let reqTable = $('#reqGrid').DataTable({
+            deferRender: false,
+            processing: false,
+            serverSide: false,
+            lengthChange: false,
+            info: false,
+            pageLength: 5,
+            columns: getReqColumns()
+        });
+
+        /* 클립 상세보기 팝업 생성 이벤트 */
+        $('#grid').on('click', 'a.dtl-link', function () {
+            let mainTable = globalStorage.get("main-table");
+            let data = mainTable.row($(this).closest('tr')).data();
+            for (let key in data) {
+                if (data.hasOwnProperty(key)) {
+                    let value = data[key];
+                    let selector = document.getElementById('dtl-' + key);
+                    if (selector != null) {
+                        if (key === 'maskSize' || key === 'clipSize') {
+                            $('#dtl-'+key+'-tmp').text(AICS.bytesToSize(value));
+                        }
+                        selector.tagName === 'SPAN' ? selector.innerText = value : selector.value = value;
+                    }
+                }
+            }
+
+            $('#dtlGrid').DataTable().destroy();
+            renderDataTable('#dtlGrid', '/clip-srch/findAllThumbById', {clipId: data.clipId}, getDtlColumns(), null);
+            popOpen('.dtl');
+        });
+
+        /**
+         * 클립 상세보기 팝업 > 카트 담기 이벤트
+         */
+        $('#dtl-btnAddCart').click(() => {
+            nobiz.confirm("클립 이용신청을 담겠습니까?", () => {
+                let nodes = document.querySelectorAll('#dtl-form input, #dtl-form span');
+                let data = {};
+                nodes.forEach(node => {
+                    data[node.id.substring(4)] = (node.tagName === 'SPAN') ? node.innerText : Number(node.value);
+                });
+                combineData([data]);
+                document.getElementById("dtl-form").reset();
+                popClose('.dtl');
+            });
+        });
+
+        /**
+         * 이용신청목록 삭제 버튼 이벤트
+         */
+        $('#cartGrid').on('click', 'button.del-row', function () {
+            let row = cartTable.row($(this).parents('tr'));
+            row.remove().draw();
+
+            let cartData = cartTable.rows().data().toArray();
+            globalStorage.set('cart', cartData);
+            if (cartData.length !== 0) {
+                $('#btnAddCart').text('담기(' + cartData.length + ')');
+            } else {
+                $('#btnAddCart').text('담기');
+            }
+        });
+
+        /**
+         * 중복을 제거한 카트 담기
+         */
+        $('#btnAddCart').click(() => {
+            let mainTable = globalStorage.get("main-table");
+            let selectedData = mainTable.rows('.selected').data().toArray();
+            if (selectedData.length === 0) {
+                nobiz.alert('클립 영상을 선택해주세요.', 'warning');
+                return false;
+            }
+            nobiz.confirm("클립 이용신청을 담겠습니까?", () => {
+                /* 중복 제거 */
+                combineData(selectedData);
+                /* 선택 해제 */
+                mainTable.rows('.selected').deselect();
+            });
+        });
+
+        /**
+         * 장바구니 확인 팝업 생성
+         */
+        $('#btnConfCart').click(() => {
+            cartTable.clear().draw();
+            let cartData = globalStorage.get('cart');
+            if (globalStorage.get('cart') !== undefined) {
+                cartTable.rows.add(cartData).draw();
+            }
+            popOpen('.clipCart');
+        });
+
+        /**
+         * 카트 확인 팝업 > 신청 팝업 생성
+         */
+        $('#btnCallReqPop').click(() => {
+            reqTable.clear().draw();
+            popClose('.popup');
+            let reqData = cartTable.rows().data().toArray();
+
+            if (reqData.length === 0) {
+                nobiz.alert('이용 신청 대상을 담아주세요.', 'warning');
+                return false;
+            }
+            reqData.forEach(d => {
+                d['clipPlayYn'] = 'N';
+                d['clipSaveYn'] = 'N';
+                d['maskPlayYn'] = 'N';
+                d['maskSaveYn'] = 'N';
+                d['thumbViewYn'] = 'N';
+                d['thumbSaveYn'] = 'N';
+            });
+            reqTable.rows.add(reqData).draw();
+            popOpen('.clipUseReq');
+        });
+
+        /**
+         * 이용 신청 하기
+         */
+        $('#dtl-btnUseReq').click(() => {
+            let startDate = $('#req-startDate').val();
+            let endDate = $('#req-endDate').val();
+
+            if (startDate === '' || endDate === '') {
+                nobiz.alert('이용시작시간과 종료시간을 입력해주세요.', 'warning');
+                return false;
+            }
+
+            reqTable.order([]);
+            let allData = reqTable.rows().data().toArray();
+            allData.forEach(function (item, index) {
+                useReqCheckColumns.forEach(d => {
+                    let node = reqTable.cell(index, d.index).node();
+                    let isChecked = $(node).find('input[type="checkbox"]').prop('checked');
+                    item[d.id] = isChecked ? 'Y' : 'N';
+                })
+            });
+
+            let nodes = document.querySelectorAll('#use-req-form input, #use-req-form span, #use-req-form textarea');
+            let params = {};
+            nodes.forEach(node => {
+                params[node.id.substring(4)] = (node.tagName === 'SPAN') ? node.innerText : node.value;
+            });
+
+            let startDtm = startDate.replaceAll('-', '') + $('#req-startHour').val() + $('#req-startMin').val();
+            let endDtm = endDate.replaceAll('-', '') + $('#req-endHour').val() + $('#req-endMin').val();
+
+            params.startDtm = startDtm;
+            params.endDtm = endDtm;
+            params.clipReqDtl = allData;
+
+            let response = AICS.post("/user-clip-req", params, false);
+            response.then(result => {
+                nobiz.alert(result.message);
+                popClose('.popup');
+            })
+
+        });
+    });
+
+    /**
+     * 클립 영상 검색 main > 검색조건 가져오기
+     */
+    const getClipSrchParams = () => {
+        let data = AICS.getSearchAreaValues();
+        let objectTypes = [];
+        delete data['ck'];
+        for (let key in data) {
+            if (key.indexOf('ck-') !== -1 && data.hasOwnProperty(key)) {
+                if (data[key] === true) {
+                    let code = key.substring(3);
+                    objectTypes.push(code);
+                }
+                delete data[key];
+            }
+        }
+        let ckEL = document.querySelector('input[type=radio][name="operation"]:checked');
+        data.operation = ckEL != null ? ckEL.id : '';
+        data.objectTypes = objectTypes;
+        data.objectSize = objectTypes.length;
+        console.log(data);
+        return data;
+    }
+
+    /**
+     * 그리드 검색
+     */
+    const searchData = (flag) => {
+        if (flag !== "init") {
+            $('#grid').DataTable().destroy();
+        }
+
+        let mainTable = renderDataTable('#grid', '/clip-srch/all', getClipSrchParams(), getColumns(), {
+            drawCallback: function (settings) {
+                /* 순번 로직 */
+                let api = this.api();
+                let totStr = $('#recordsFiltered').text();
+                let totNum = Number(totStr === '' ? 0 : totStr);
+                let curPage = api.page.info().page;
+                let rowsPerPage = api.page.len();
+
+                totNum = (totNum - (curPage * rowsPerPage));
+                api.rows().every(function () {
+                    $(this.node()).find('td').eq(0).html(totNum);
+                    totNum = totNum - 1;
+                });
+            },
+            select: {
+                style: 'multi'
+            }
+        });
+        globalStorage.set("main-table", mainTable);
+    }
+
+    /**
+     * 조건 초기화 검색
+     */
+    const resetData = () => {
+        /* 검색 조건 클리어 */
+        AICS.clearSearchAreaValues();
+        document.querySelector('#and').checked = true;
+        searchData();
+    }
+
+    /**
+     * 그리드 체크박스 위치, 컬럼명칭 리스트
+     * @type {[{index: number, id: string},{index: number, id: string},{index: number, id: string},{index: number, id: string},{index: number, id: string},null]}
+     */
+    const useReqCheckColumns = [
+        { id : 'clipPlayYn',    index : 4 },
+        { id : 'clipSaveYn',    index : 5 },
+        { id : 'maskPlayYn',    index : 7 },
+        { id : 'maskSaveYn',    index : 8 },
+        { id : 'thumbViewYn',   index : 10 },
+        { id : 'thumbSaveYn',   index : 11 }
+    ];
+
+    /**
+     * 메인화면 그리드 컬럼
+     * @returns {[{data: null, orderable: boolean, width: string, className: string},{visible: boolean, data: string},{visible: boolean, data: string},{data: string, className: string, render: (function(*, *, *): string)},{data: string, className: string},null,null,null,null,null]}
+     */
+    const getColumns = () => {
+        return [
+            {data: null, className: 't-rgt', orderable: false, width: '4%'},
+            {data: "clipId", visible: false},
+            {data: "fileId", visible: false},
+            {
+                data: "fileNm", className: 't-lft', render: (data, type, row) => {
+                    return '<span><a href="#" class="dtl-link" style="text-decoration: underline; color: blue;">' + data + '</a></span>';
+                }
+            },
+            {data: "objectType", className: 't-lft'},
+            {data: "createDtm", className: 't-ctr'},
+            {
+                data: "clipSize", className: 't-rgt', render: (data, type, row) => {
+                    return AICS.bytesToSize(data);
+                }
+            },
+            {
+                data: "maskSize", className: 't-rgt', render: (data, type, row) => {
+                    return AICS.bytesToSize(data);
+                }
+            },
+            {data: "thumbCnt", className: 't-rgt'},
+            {data: "maskCreateDtm", visible: false}
+        ];
+    }
+
+    /**
+     * 상세보기 팝업 그리드 컬럼
+     * @returns {[{data: string, className: string},{data: string, className: string},{data: string, className: string},{data: string, className: string},{data: string, className: string},null,null]}
+     */
+    const getDtlColumns = () => {
+        return [
+            {data: "fileNm", className: 't-lft'},
+            {data: "objectType", className: 't-lft'},
+            {data: "createDtm", className: 't-ctr'},
+            {data: "bboxLeft", className: 't-ctr'},
+            {data: "bboxTop", className: 't-ctr'},
+            {data: "bboxRight", className: 't-ctr'},
+            {data: "bboxBottom", className: 't-ctr'}
+        ]
+    }
+
+    /**
+     * 카트 팝업 그리드 컬럼
+     * @returns {[{data: null, width: string, className: string, render: (function(*, *, *): string)},{visible: boolean, data: string},{visible: boolean, data: string},{data: string, className: string},{data: string, className: string},null,null,null,null,null]}
+     */
+    const getCartColumns = () => {
+        return [
+            {
+                data: null, className: 't-ctr', width: '1%', render: (data, type, row) => {
+                    return '<button class="del-row" style="border: 1px solid #ddd;">X</button>';
+                }
+            },
+            {data: "clipId", visible: false},
+            {data: "fileId", visible: false},
+            {data: "fileNm", className: 't-lft'},
+            {data: "objectType", className: 't-lft'},
+            {data: "createDtm", className: 't-ctr'},
+            {
+                data: "clipSize", className: 't-rgt', render: (data, type, row) => {
+                    return AICS.bytesToSize(data);
+                }
+            },
+            {
+                data: "maskSize", className: 't-rgt', render: (data, type, row) => {
+                    return AICS.bytesToSize(data);
+                }
+            },
+            {data: "thumbCnt", className: 't-rgt'},
+            {data: "maskCreateDtm", visible: false}
+        ];
+    }
+
+    /**
+     * 이용신청 팝업 그리드 컬럼
+     */
+    const getReqColumns = () => {
+        let policy = globalStorage.get('policy');
+
+        return [
+            {data: "fileNm", className: 't-lft'},
+            {data: "objectType", className: 't-lft'},
+            {data: "createDtm", className: 't-ctr'},
+            {
+                data: "clipSize", className: 't-rgt', render: (data, type, row) => {
+                    return AICS.bytesToSize(data);
+                }
+            },
+            {
+                data: "clipPlayYn", className: 't-ctr', render: (data, type, row) => {
+                    let html = '<input type="checkbox" class="form-check-input chk-clipPlayYn" ';
+                    if (data === 'Y') {
+                        html += 'checked ';
+                    }
+                    if (policy.clipPlayYn === 'N') {
+                        html += 'disabled';
+                    }
+                    html += '/>';
+                    return html;
+                }
+            },
+            {
+                data: "clipSaveYn", className: 't-ctr', render: (data, type, row) => {
+                    let html = '<input type="checkbox" class="form-check-input" ';
+                    if (data === 'Y') {
+                        html += 'checked ';
+                    }
+                    if (policy.clipSaveYn === 'N') {
+                        html += 'disabled';
+                    }
+                    html += '/>';
+                    return html;
+                }
+            },
+            {
+                data: "maskSize", className: 't-rgt', render: (data, type, row) => {
+                    return AICS.bytesToSize(data);
+                }
+            },
+            {
+                data: "maskPlayYn", className: 't-ctr', render: (data, type, row) => {
+                    let html = '<input type="checkbox" class="form-check-input" ';
+                    if (data === 'Y') {
+                        html += 'checked ';
+                    }
+                    if (policy.maskPlayYn === 'N') {
+                        html += 'disabled';
+                    }
+                    html += '/>';
+                    return html;
+                }
+            },
+            {
+                data: "maskSaveYn", className: 't-ctr', render: (data, type, row) => {
+                    let html = '<input type="checkbox" class="form-check-input" ';
+                    if (data === 'Y') {
+                        html += 'checked ';
+                    }
+                    if (policy.maskSaveYn === 'N') {
+                        html += 'disabled';
+                    }
+                    html += '/>';
+                    return html;
+                }
+            },
+            {data: "thumbCnt", className: 't-rgt'},
+            {
+                data: "thumbViewYn", className: 't-ctr', render: (data, type, row) => {
+                    let html = '<input type="checkbox" class="form-check-input" ';
+                    if (data === 'Y') {
+                        html += 'checked ';
+                    }
+                    if (policy.thumbViewYn === 'N') {
+                        html += 'disabled';
+                    }
+                    html += '/>';
+                    return html;
+                }
+            },
+            {
+                data: "thumbSaveYn", className: 't-ctr', render: (data, type, row) => {
+                    let html = '<input type="checkbox" class="form-check-input" ';
+                    if (data === 'Y') {
+                        html += 'checked ';
+                    }
+                    if (policy.thumbSaveYn === 'N') {
+                        html += 'disabled';
+                    }
+                    html += '/>';
+                    return html;
+                }
+            },
+            {data: "clipId", visible: false},
+            {data: "fileId", visible: false}
+        ];
+    }
+
+    /**
+     * 장바구니 중복 제거 데이터 결합
+     * @param addData
+     */
+    const combineData = (addData) => {
+        let cartData = globalStorage.get('cart') == null ? [] : globalStorage.get('cart');
+        let combinedData = Array.from(
+            new Set([...cartData, ...addData].map(obj => obj.clipId)))
+            .map(id => [...cartData, ...addData].find(obj => obj.clipId === id));
+
+        /* 카트에 담기 */
+        globalStorage.set('cart', combinedData);
+        if (combinedData.length !== 0) {
+            $('#btnAddCart').text('담기(' + combinedData.length + ')');
+        }
+    }
+</script>
+<div class="contents">
+    <div class="gd-inner">
+        <div class="big-tit">클립 영상 검색</div>
+        <div class="srch-container">
+            <div class="int-area">
+                <div>
+                    <label class="form-label">정렬</label>
+                    <select class="form-select" id="ordering" name="ordering">
+                        <option value="desc" selected>최신순</option>
+                        <option value="asc">과거순</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="form-label">식별개체</label>
+                    <ul class="in-flx chk-box">
+                        <li>
+                            <input class="form-check-input check-all" type="checkbox" id="ck">
+                            <label class="form-check-label" for="ck">전체</label>
+                        </li>
+
+                        <li th:each="object, index : ${objectTypes}">
+                            <input class="form-check-input" type="checkbox" th:id="'ck-' + ${object.code}" />
+                            <label class="form-check-label" th:for="'ck-' + ${object.code}" th:text="${object.codeText}"></label>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <label class="form-label">논리연산</label>
+                    <div class="in-flx rd-box">
+                        <div>
+                            <input class="form-check-input" type="radio" id="and" name="operation" checked>
+                            <label class="form-check-label" for="and">AND</label>
+                        </div>
+                        <div>
+                            <input class="form-check-input" type="radio" id="or" name="operation">
+                            <label class="form-check-label" for="or">OR</label>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="form-label">상태</label>
+                    <select class="form-select" id="stts" name="stts">
+                        <option value="">전체</option>
+                        <option th:value="${clipComplete}">클리핑완료</option>
+                        <option th:value="${maskComplete}">비식별화완료</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="form-label">기간</label>
+                    <div class="in-flx">
+                        <input type="text" id="startDate" class="form-control dtpk">
+                        <span>~</span>
+                        <input type="text" id="endDate" class="form-control dtpk">
+                    </div>
+                </div>
+            </div>
+            <div class="btn-box">
+                <button type="button" class="btn blue" th:onclick="searchData()">검색</button>
+                <button type="button" class="btn navy" th:onclick="resetData()">조건초기화</button>
+            </div>
+        </div>
+        <div class="grid-top-comp-area">
+            <span>총 <b id="recordsFiltered">0</b>건</span>
+            <span>
+                <button type="button" class="btn orange cart" id="btnAddCart">담기</button>
+                <button type="button" class="btn blue" id="btnConfCart">장바구니 확인</button>
+            </span>
+        </div>
+        <table id="grid">
+            <thead>
+            <tr>
+                <th>순번</th>
+                <th>클립아이디</th>
+                <th>파일아이디</th>
+                <th>클립 영상 파일명</th>
+                <th>식별 객체</th>
+                <th>클립 생성일시</th>
+                <th>클립 영상 크기</th>
+                <th>비식별화 영상 크기</th>
+                <th>학습용 썸네일</th>
+                <th>비식별화 파일 생성일</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<div th:replace="~{clip/popup/clipSrchDtl :: clipSrchDtl}"></div>
+<div th:replace="~{clip/popup/clipCart :: clipCart}"></div>
+<div th:replace="~{clip/popup/clipUseReq :: clipUseReq}"></div>
+</html>

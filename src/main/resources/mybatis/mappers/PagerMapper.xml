@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="common.pager">
+    <sql id="PagingStart">
+        select
+        *
+        from (
+            select
+                   A.*
+                    <choose>
+                        <when test="sortMn != null and !sortMn.equals('')">
+                            , ROW_NUMBER() OVER (ORDER BY ${sortMn} ${sortDir}) as ROW_NUMBER
+                        </when>
+                        <otherwise>
+                            , ROW_NUMBER() OVER (ORDER BY 1 DESC) as ROW_NUMBER
+                            <!-- 또는 다른 기본 정렬 열로 대체할 수 있음 -->
+                        </otherwise>
+                    </choose>
+            from (
+    </sql>
+
+    <sql id="PagingEnd">
+        ) A
+        ) B
+        <where>
+            <if test="startRow != 0">
+                B.ROW_NUMBER between #{startRow} and #{endRow}
+                order by B.ROW_NUMBER
+            </if>
+        </where>
+    </sql>
+</mapper>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />
+    <meta name="theme-color" content="#2D316C" />
+    <title>광주광역시 AI 영상 클리핑 시스템</title>
+    <link rel="stylesheet" type="text/css" href="../share/css/lightslider.css">
+    <link rel="stylesheet" type="text/css" href="../share/css/style.css">
+    <script type="text/javascript" src="../share/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../share/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../share/js/placeholder.js"></script>
+    <script type="text/javascript" src="../share/js/jquery.ellipsis.js"></script>
+    <script type="text/javascript" src="../share/js/owl.carousel.js"></script>
+    <script type="text/javascript" src="../share/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../share/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="../share/js/jstree.js"></script>
+    <script type="text/javascript" src="../share/js/swiper.min.js"></script>
+    <script type="text/javascript" src="../share/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../share/js/tui-pagination.js"></script>
+    <script type="text/javascript" src="../share/js/ui.js"></script>
+    <script>
+        $(function() {
+            // datatables 시작
+            new DataTable('#grid', {
+                // scrollY: 300,
+                paging: true,
+                searching: true,
+                info: true,
+                ordering: true
+            } );
+            // d atatables 끝
+        });
+    </script>
+</head>
+
+<body>
+    <div id="wrap">
+        <div class="inner">
+            <div class="header">
+                <div class="hd-ft">
+                    <button class="mobile-menu-btn"><span></span></button>
+                    <a href="GJM-AICS-002-01.html" class="logo">
+                        <img src="../share/image/contents/img-main-logo.png" alt="logo">
+                    </a>
+                </div>
+                <ul class="menu">
+                    <li>
+                        <a href="#none">클립영상관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">현황통계관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">클리핑요청관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">이용자관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">이력관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">시스템관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="utill">
+                    <li class="manager">관리자<b>홍길동</b>님</li>
+                    <li class="alarm dot"><a href=""><span></span></a></li>
+                    <li class="mypage"><a href="">내정보관리</a></li>
+                    <li class="logout"><a href="">로그아웃</a></li>
+                </ul>
+            </div>
+            <div class="contents"></div>
+            <div class="footer">
+                Copyright ⓒ 2024 Gwangju Metropolitan City. All Rights Reserved.
+            </div>
+        </div>
+    </div>
+    <div class="modal-bg"></div>
+    <div class="popup">
+        <div class="tit"><span>클립 이용 신청 상세 조회</span><button class="x-btn" onclick="popClose('.popup')"></button></div>
+        <div class="container">
+            <div class="sub-tit">이용 신청 정보</div>
+            <div class="result-container mgb30">
+                <table>
+                    <tr>
+                        <th>신청일시</th>
+                        <td>2023.12.01</td>
+                        <th>상태</th>
+                        <td>승인</td>
+                    </tr>
+                    <tr>
+                        <th>유형</th>
+                        <td>기업</td>
+                        <th>소속명</th>
+                        <td>(주)AI개발</td>
+                    </tr>
+                    <tr>
+                        <th>이용자명</th>
+                        <td>홍길동</td>
+                        <th>아이디</th>
+                        <td>Hongil01</td>
+                    </tr>
+                    <tr>
+                        <th>연락처</th>
+                        <td>010-1234-1234</td>
+                        <th>이메일</th>
+                        <td>Hongil01@aidev.kr</td>
+                    </tr>
+                    <tr>
+                        <th>이용시작시간</th>
+                        <td>2023.12.01 10:00</td>
+                        <th>이용종료시간</th>
+                        <td>2023.12.01 12:00</td>
+                    </tr>
+                    <tr>
+                        <th>이용목적</th>
+                        <td colspan="3">
+                            <p>01. 이용목적이 들어갑니다.</p>
+                            <p>02. 이용목적이 들어갑니다.</p>
+                            <p>03. 이용목적이 들어갑니다.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>거절사유</th>
+                        <td colspan="3">
+                            <p>01. 거절사유가 들어갑니다.</p>
+                            <p>02. 거절사유가 들어갑니다.</p>
+                            <p>03. 거절사유가 들어갑니다.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>승인일시</th>
+                        <td>2023.12.01 10:00</td>
+                        <th>관리자</th>
+                        <td>admin</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <div class="sub-t-add">
+                    <div class="sub-tit">이용 신청 내역</div>
+                    <span>50개</span>
+                </div>
+                <table id="grid">
+                    <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th rowspan="2">클립 영상 파일명</th>
+                            <th rowspan="2">식별 객체</th>
+                            <th rowspan="2">클립 생성일시</th>
+                            <th colspan="3">클립 영상</th>
+                            <th colspan="3">비식별화 영상</th>
+                            <th colspan="3">학습용 썸네일</th>
+                        </tr>
+                        <tr>
+                            <th>크기</th>
+                            <th>재생</th>
+                            <th>저장</th>
+                            <th>크기</th>
+                            <th>재생</th>
+                            <th>저장</th>
+                            <th>갯수</th>
+                            <th>조회</th>
+                            <th>저장</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="t-lft">20230901_CCTV0001_0001</td>
+                            <td class="t-lft">사람</td>
+                            <td class="t-ctr">2023.11.01. 11:00:00</td>
+                            <td class="t-rgt">8.3 MB</td>
+                            <td class="t-ctr">O</td>
+                            <td class="t-ctr">X</td>
+                            <td class="t-rgt">8.3 MB</td>
+                            <td class="t-ctr">O</td>
+                            <td class="t-ctr">X</td>
+                            <td class="t-rgt">5개</td>
+                            <td class="t-ctr">O</td>
+                            <td class="t-ctr">O</td>
+                        </tr>
+                        <tr>
+                            <td class="t-lft">20230901_CCTV0001_0001</td>
+                            <td class="t-lft">사람</td>
+                            <td class="t-ctr">2023.11.01. 11:00:00</td>
+                            <td class="t-rgt">8.3 MB</td>
+                            <td class="t-ctr">O</td>
+                            <td class="t-ctr">X</td>
+                            <td class="t-rgt">8.3 MB</td>
+                            <td class="t-ctr">O</td>
+                            <td class="t-ctr">X</td>
+                            <td class="t-rgt">5개</td>
+                            <td class="t-ctr">O</td>
+                            <td class="t-ctr">O</td>
+                        </tr>
+                        <tr>
+                            <td class="t-lft">20230901_CCTV0001_0001</td>
+                            <td class="t-lft">사람</td>
+                            <td class="t-ctr">2023.11.01. 11:00:00</td>
+                            <td class="t-rgt">8.3 MB</td>
+                            <td class="t-ctr">O</td>
+                            <td class="t-ctr">X</td>
+                            <td class="t-rgt">8.3 MB</td>
+                            <td class="t-ctr">O</td>
+                            <td class="t-ctr">X</td>
+                            <td class="t-rgt">5개</td>
+                            <td class="t-ctr">O</td>
+                            <td class="t-ctr">O</td>
+                        </tr>
+                        <tr>
+                            <td class="t-lft">20230901_CCTV0001_0001</td>
+                            <td class="t-lft">사람</td>
+                            <td class="t-ctr">2023.11.01. 11:00:00</td>
+                            <td class="t-rgt">8.3 MB</td>
+                            <td class="t-ctr">O</td>
+                            <td class="t-ctr">X</td>
+                            <td class="t-rgt">8.3 MB</td>
+                            <td class="t-ctr">O</td>
+                            <td class="t-ctr">X</td>
+                            <td class="t-rgt">5개</td>
+                            <td class="t-ctr">O</td>
+                            <td class="t-ctr">O</td>
+                        </tr>
+                        <tr>
+                            <td class="t-lft">20230901_CCTV0001_0001</td>
+                            <td class="t-lft">사람</td>
+                            <td class="t-ctr">2023.11.01. 11:00:00</td>
+                            <td class="t-rgt">8.3 MB</td>
+                            <td class="t-ctr">O</td>
+                            <td class="t-ctr">X</td>
+                            <td class="t-rgt">8.3 MB</td>
+                            <td class="t-ctr">O</td>
+                            <td class="t-ctr">X</td>
+                            <td class="t-rgt">5개</td>
+                            <td class="t-ctr">O</td>
+                            <td class="t-ctr">O</td>
+                        </tr>
+                    </tbody>
+                </table> <!-- 그리드 div -->
+            </div>
+            <div class="btn-box-bottom mgt30">
+                <button type="button" class="btn blue mgr10" onclick="popClose('.popup')">승인</button><button type="button" class="btn orange mgr10" onclick="popClose('.popup')">거절</button><button type="button" class="btn gray" onclick="popClose('.popup')">닫기</button>
+            </div>
+        </div>
+    </div>
+</body>
+<link rel="stylesheet" href="../share/css/tui-custom.css" />
+</html>

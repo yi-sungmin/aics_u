@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="clipUseReq">
+    <div class="popup clipUseReq" style="display: none;">
+        <div class="tit">
+            <span>클립 이용 신청</span>
+            <button class="x-btn" onclick="popClose('.clipUseReq')"></button>
+        </div>
+        <div class="container">
+            <div class="sub-tit">이용자 정보</div>
+            <form id="use-req-form">
+                <div class="result-container mgb30">
+                    <table th:object="${session.loginSession}">
+                        <tr>
+                            <th>이용자명</th>
+                            <td>
+                                <span id="req-userNm" name="userNm" th:text="*{loginUserNm}"></span>
+                            </td>
+                            <th>아이디</th>
+                            <td>
+                                <span id="req-userId" name="userId" th:text="*{loginUserId}"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>연락처</th>
+                            <td>
+                                <span id="req-telNo" name="telNo" th:text="*{loginTelNo}"></span>
+                            </td>
+                            <th>이메일주소</th>
+                            <td>
+                                <span id="req-emailAddr" name="emailAddr" th:text="*{loginEmailAddr}"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이용시작시간</th>
+                            <td>
+                                <div>
+                                    <input type="text"
+                                           class="form-control-sm dtpk mgr5"
+                                           id="req-startDate">
+                                    <select id="req-startHour" class="form-select-sm mgr5">
+                                        <option th:each="hour : ${#numbers.sequence(0, 23)}"
+                                                th:value="${hour < 10 ? '0' + hour : hour}"
+                                                th:text="${hour < 10 ? '0' + hour : hour}"></option>
+                                    </select>
+                                    <strong style="padding: 3px 0; margin-right: 5px;">:</strong>
+                                    <select id="req-startMin" class="form-select-sm mgr5">
+                                        <option th:each="min : ${#numbers.sequence(0, 59)}"
+                                                th:value="${min < 10 ? '0' + min : min}"
+                                                th:text="${min < 10 ? '0' + min : min}"></option>
+                                    </select>
+                                </div>
+                            </td>
+                            <th>이용종료시간</th>
+                            <td><div>
+                                <input type="text"
+                                       class="form-control-sm dtpk mgr5"
+                                       id="req-endDate">
+                                <select id="req-endHour" class="form-select-sm mgr5">
+                                    <option th:each="hour : ${#numbers.sequence(0, 23)}"
+                                            th:value="${hour < 10 ? '0' + hour : hour}"
+                                            th:text="${hour < 10 ? '0' + hour : hour}"></option>
+                                </select>
+                                <strong style="padding: 3px 0; margin-right: 5px;">:</strong>
+                                <select id="req-endMin" class="form-select-sm mgr5">
+                                    <option th:each="min : ${#numbers.sequence(0, 59)}"
+                                            th:value="${min < 10 ? '0' + min : min}"
+                                            th:text="${min < 10 ? '0' + min : min}"></option>
+                                </select>
+                            </div></td>
+                        </tr>
+                        <tr>
+                            <th>이용목적</th>
+                            <td colspan="3">
+                                <textarea id="req-purpose" name="purpose" rows="2"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+            <div>
+                <div class="sub-t-add">
+                    <div class="sub-tit">이용 신청 정보</div>
+                </div>
+                <table id="reqGrid">
+                    <thead>
+                    <tr>
+                        <th rowspan="2">클립 영상 파일명</th>
+                        <th rowspan="2">식별 객체</th>
+                        <th rowspan="2">클립 생성일시</th>
+                        <th colspan="3">클립 영상</th>
+                        <th colspan="3">비식별화 영상</th>
+                        <th colspan="3">학습용 썸네일</th>
+                    </tr>
+                    <tr>
+                        <th>크기</th>
+                        <th>재생</th>
+                        <th>저장</th>
+                        <th>크기</th>
+                        <th>재생</th>
+                        <th>저장</th>
+                        <th>크기</th>
+                        <th>조회</th>
+                        <th>저장</th>
+                        <th>클립아이디</th>
+                        <th>파일아이디</th>
+                    </tr>
+                    </thead>
+                </table> <!-- 그리드 div -->
+            </div>
+            <div class="sub-tit">이용자 클립 영상 반출 정책</div>
+            <table class="html-table">
+                <colgroup>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th colspan="2">클립 영상</th>
+                    <th colspan="2">비식별화 영상</th>
+                    <th colspan="2">학습용 썸네일</th>
+                </tr>
+                <tr>
+                    <th>재생</th>
+                    <th>저장</th>
+                    <th>재생</th>
+                    <th>저장</th>
+                    <th>조회</th>
+                    <th>저장</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="t-ctr">
+                        <span th:text="${policy.clipPlayYn eq 'Y' ? '허용' : '허용안함'}"></span>
+                    </td>
+                    <td class="t-ctr">
+                        <span th:text="${policy.clipSaveYn eq 'Y' ? '허용' : '허용안함'}"></span>
+                    </td>
+                    <td class="t-ctr">
+                        <span th:text="${policy.maskPlayYn eq 'Y' ? '허용' : '허용안함'}"></span>
+                    </td>
+                    <td class="t-ctr">
+                        <span th:text="${policy.maskSaveYn eq 'Y' ? '허용' : '허용안함'}"></span>
+                    </td>
+                    <td class="t-ctr">
+                        <span th:text="${policy.thumbViewYn eq 'Y' ? '허용' : '허용안함'}"></span>
+                    </td>
+                    <td class="t-ctr">
+                        <span th:text="${policy.thumbSaveYn eq 'Y' ? '허용' : '허용안함'}"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="btn-box-bottom mgt30">
+                <button type="button" class="btn blue" id="dtl-btnUseReq">이용 신청 요청</button>
+                <button type="button" class="btn gray" id="dtl-btnCancel" th:onclick="popClose('.popup')">닫기</button>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

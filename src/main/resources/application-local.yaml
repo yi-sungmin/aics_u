@@ -1,0 +1,29 @@
+# server info
+server:
+  port: 9443
+  servlet:
+    session:
+      timeout: 30m
+  ssl:
+    protocol: TLS
+    key-store-password: nobiz0420!
+    key-store-type: PKCS12
+    key-store-provider: SUN
+    enabled: 'true'
+    key-store: classpath:nobiz-keystore.p12
+    key-alias: nobizkey
+
+# database
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/aics
+    username: postgres
+    password: nobiz0420!
+    driver-class-name: org.postgresql.Driver
+
+logging:
+  level:
+    root: info
+    com.nobiz.aics_u: debug
+    jdbc:
+      resultsettable: debug

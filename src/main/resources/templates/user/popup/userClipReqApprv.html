@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="apprvPop">
+    <div class="popup dtl" style="display: none;">
+        <div class="tit">
+            <span>클립 이용 신청 상세 조회</span>
+            <button class="x-btn" onclick="popClose('.dtl')"></button>
+        </div>
+        <div class="container">
+            <div class="sub-tit">이용자 정보</div>
+            <div class="result-container mgb30">
+                <input type="hidden" id="dtl-reqId">
+                <table>
+                    <tr>
+                        <th>신청일시</th>
+                        <td>
+                            <span id="dtl-reqDtm"></span>
+                        </td>
+                        <th>상태</th>
+                        <td>
+                            <span id="dtl-stts"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>유형</th>
+                        <td>
+                            <span id="dtl-typeNm"></span>
+                        </td>
+                        <th>소속명</th>
+                        <td>
+                            <span id="dtl-orgNm"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이용자명</th>
+                        <td>
+                            <span id="dtl-userNm"></span>
+                        </td>
+                        <th>아이디</th>
+                        <td>
+                            <span id="dtl-userId"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>연락처</th>
+                        <td>
+                            <span id="dtl-telNo"></span>
+                        </td>
+                        <th>이메일</th>
+                        <td>
+                            <span id="dtl-emailAddr"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이용시작시간</th>
+                        <td>
+                            <span id="dtl-startDtm"></span>
+                        </td>
+                        <th>이용종료시간</th>
+                        <td>
+                            <span id="dtl-endDtm"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이용목적</th>
+                        <td colspan="3">
+                            <textarea id="dtl-purpose" rows="2" readonly></textarea>
+                        </td>
+                    </tr>
+                    <tr class="tr-reject tr-1">
+                        <th>거절사유</th>
+                        <td colspan="3">
+                            <textarea id="dtl-rejectReason" name="rejectReason" rows="2" readonly></textarea>
+                        </td>
+                    </tr>
+                    <tr class="tr-reject tr-2">
+                        <th>거절일시</th>
+                        <td>
+                            <span id="dtl-rejectDtm"></span>
+                        </td>
+                        <th>거절관리자</th>
+                        <td>
+                            <span id="dtl-rejectId"></span>
+                        </td>
+                    </tr>
+                    <tr class="tr-apprv">
+                        <th>승인일시</th>
+                        <td>
+                            <span id="dtl-apprvDtm"></span>
+                        </td>
+                        <th>승인관리자</th>
+                        <td>
+                            <span id="dtl-apprvId"></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <div class="sub-t-add">
+                    <div class="sub-tit">이용 신청 클립 내역</div>
+<!--                    <span id="popFilteredRecords">0개</span>-->
+                </div>
+                <table id="popGrid">
+                    <thead>
+                    <tr>
+                        <th rowspan="2">클립 영상 파일명</th>
+                        <th rowspan="2">식별 객체</th>
+                        <th rowspan="2">클립 생성일시</th>
+                        <th colspan="3">클립 영상</th>
+                        <th colspan="3">비식별화 영상</th>
+                        <th colspan="3">학습용 썸네일</th>
+                    </tr>
+                    <tr>
+                        <th>크기</th>
+                        <th>재생</th>
+                        <th>저장</th>
+                        <th>크기</th>
+                        <th>재생</th>
+                        <th>저장</th>
+                        <th>갯수</th>
+                        <th>조회</th>
+                        <th>저장</th>
+                    </tr>
+                    </thead>
+                </table> <!-- 그리드 div -->
+            </div>
+            <div class="btn-box-bottom mgt30">
+                <button type="button" class="btn gray" id="dtl-btnCancel" th:onclick="popClose('.popup')">닫기</button>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

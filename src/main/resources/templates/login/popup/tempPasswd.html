@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="popup">
+    <div class="popup user-wrap">
+        <div class="tit"><span>임시 비밀번호 변경</span><button class="x-btn" onclick="popClose('.popup')"></button></div>
+        <div class="container">
+            <p class="txt mgb30">새로운 비밀번호를 설정한 뒤 다시 로그인 해주시기 바랍니다.</p>
+            <div class="int-box mgb10">
+                <label class="form-label">신규 비밀번호</label>
+                <input type="password" id="newPasswd" name="newPasswd" class="form-control rock" placeholder="비밀번호를 입력해주세요.">
+            </div>
+            <div class="int-box mgb50">
+                <label class="form-label">비밀번호 확인</label>
+                <input type="password" id="confPasswd" name="confPasswd" class="form-control rock" placeholder="비밀번호를 입력해주세요.">
+            </div>
+            <div class="btn-box-bottom">
+                <button type="button" class="btn blue mgr10" th:onclick="changePasswd()">확인</button>
+                <button type="button" class="btn gray" th:onclick="|location.href='@{/login-page}'|">취소</button>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

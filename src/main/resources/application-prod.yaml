@@ -1,0 +1,60 @@
+# server info
+server:
+  port: 9443
+  servlet:
+    session:
+      timeout: 30m
+  ssl:
+    protocol: TLS
+    key-store-password: nobiz0420!
+    key-store-type: PKCS12
+    key-store-provider: SUN
+    enabled: 'true'
+    key-store: classpath:nobiz-keystore.p12
+    key-alias: nobizkey
+
+# database
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:54321/aics
+    username: nobiz
+    password: nobiz0420!
+    driver-class-name: org.postgresql.Driver
+
+logging:
+  level:
+    root: info
+    org:
+      springframework:
+        web: info
+    com.nobiz.aics_m: debug
+    jdbc:
+      audit: debug
+      resultset: debug
+      resultsettable: debug  #SQL 결과 데이터 Table을 로그로 남긴다.
+      sqlonly: debug     #SQL만 로그로 남긴다.
+      sqltiming: debug    #SQL과 소요시간을 표기한다.
+      connection: debug  # 커넥션 확인가능
+  file:
+    path: /opt/tomcat/logs/user/
+    name: ${logging.file.path}/aicsU_log.log
+  logback:
+    rollingpolicy:
+      clean-history-on-start: true
+      max-file-size: 30MB
+      max-history: 30
+
+# file path
+file:
+  temp:
+    path: /AICS/Temp/  # 다운로드 임시 저장소
+  user:
+    path: /AICS/users/
+  base:
+    path: /AICS/
+  clip:
+    path: /AICS/clip/
+  mask:
+    path: /AICS/mask/
+  thumbnail:
+    path: /AICS/thumbnail/

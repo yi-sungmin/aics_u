@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="userReqConf">
+    <div class="popup user-wrap conf" style="display: none;">
+        <div class="tit"><span>이용자 등록 신청 결과 확인</span>
+            <button class="x-btn" onclick="popClose('.popup')"></button>
+        </div>
+        <div class="container">
+            <form id="conf-form">
+                <div class="two-cont-box">
+                    <div>
+                        <p class="sub-tit mgb20">로그인 정보로 확인</p>
+                        <div class="int-box mgb10">
+                            <label class="form-label">아이디</label>
+                            <input type="text" class="form-control user" id="conf-userId" name="userId" placeholder="아이디를 입력해주세요.">
+                        </div>
+                        <div class="int-box mgb30">
+                            <label class="form-label">비밀번호</label>
+                            <input type="password" class="form-control rock" id="conf-passwd" name="passwd" placeholder="비밀번호를 입력해주세요.">
+                        </div>
+                        <div class="btn-box-bottom">
+                            <button type="button" class="btn blue mgr10" id="conf-btnConfLogin">확인</button>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="sub-tit mgb20">이용자 정보로 확인</p>
+                        <div class="int-box mgb10">
+                            <label class="form-label">이용자명</label>
+                            <input type="text" class="form-control user" id="conf-userNm" name="userNm" placeholder="이름을 입력해주세요.">
+                        </div>
+                        <div class="int-box mgb10">
+                            <label class="form-label">연락처</label>
+                            <input type="number" class="form-control phone" id="conf-telNo" name="telNo" placeholder="숫자만 입력해주세요.">
+                        </div>
+                        <div class="int-box mgb30">
+                            <label class="form-label">이메일</label>
+                            <input type="email" class="form-control email" id="conf-emailAddr" name="emailAddr" placeholder="이메일을 입력해주세요">
+                        </div>
+                        <div class="btn-box-bottom">
+                            <button type="button" class="btn blue mgr10" id="conf-btnConfUser">확인</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 없음 -->
+    <div class="popup user-wrap conf-isnot" style="display: none;">
+        <div class="tit"><span>이용자 등록 신청 결과 확인</span>
+            <button class="x-btn" onclick="popClose('.popup')"></button>
+        </div>
+        <div class="container">
+            <p class="txt mgb30">등록 신청한 내역이 존재하지 않습니다. 입력하신 정보를 다시 확인하시기 바랍니다.</p>
+            <div class="btn-box-bottom">
+                <button type="button" class="btn gray" onclick="popClose('.popup')">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 신청 -->
+    <div class="popup user-wrap conf-req" style="display: none;">
+        <div class="tit"><span>이용자 등록 신청 결과 확인</span>
+            <button class="x-btn" onclick="popClose('.popup')"></button>
+        </div>
+        <div class="container">
+            <p class="txt mgb30">신청접수 상태입니다.</p>
+            <div class="btn-box-bottom">
+                <button type="button" class="btn gray" onclick="popClose('.popup')">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 승인 -->
+    <div class="popup user-wrap conf-apprv" style="display: none;">
+        <div class="tit"><span>이용자 등록 신청 결과 확인</span>
+            <button class="x-btn" onclick="popClose('.popup')"></button>
+        </div>
+        <div class="container">
+            <p class="txt mgb30">이용자 등록이 완료된 상태입니다. 신청하신 아이디와 비밀번호로 로그인하시기 바랍니다.</p>
+            <div class="btn-box-bottom">
+                <button type="button" class="btn orange mgr10" th:onclick="|location.href='@{/login-page}'|">로그인</button>
+                <button type="button" class="btn gray" onclick="popClose('.popup')">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 거절 -->
+    <div class="popup user-wrap conf-reject" style="display: none;">
+        <div class="tit"><span>이용자 등록 신청 결과 확인</span>
+            <button class="x-btn" onclick="popClose('.popup')"></button>
+        </div>
+        <div class="container">
+            <div class="result-container mgb30">
+                <form id="reject-form">
+                    <input type="hidden" id="re-reqId"/>
+                    <table>
+                        <tr>
+                            <th>유형</th>
+                            <td>
+                                <select class="form-select" id="re-typeId" name="typeId">
+                                    <option th:each="option : ${userDivType}"
+                                            th:value="${option.typeId}"
+                                            th:text="${option.typeNm}">
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>소속명</th>
+                            <td>
+                                <input type="text" class="form-control-sm" id="re-orgNm" name="orgNm">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이용자명</th>
+                            <td>
+                                <span id="re-userNm" name="userNm"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>아이디</th>
+                            <td>
+                                <span id="re-userId" name="userNm"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>비밀번호</th>
+                            <td>
+                                <input type="password" class="form-control-sm" id="re-passwd" name="passwd">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>비밀번호 확인</th>
+                            <td>
+                                <input type="password" class="form-control-sm" id="re-confPasswd" name="confPasswd">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>연락처</th>
+                            <td>
+                                <span id="re-telNo" name="telNo"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이메일주소</th>
+                            <td>
+                                <span id="re-emailAddr" name="emailAddr"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이용 시작시간</th>
+                            <td>
+                                <div>
+                                    <input type="text"
+                                           class="form-control-sm dtpk mgr5"
+                                           id="re-startDate">
+                                    <select id="re-startHour" class="form-select-sm mgr5">
+                                        <option th:each="hour : ${#numbers.sequence(0, 23)}"
+                                                th:value="${hour < 10 ? '0' + hour : hour}"
+                                                th:text="${hour < 10 ? '0' + hour : hour}"></option>
+                                    </select>
+                                    <strong style="preqing: 3px 0; margin-right: 5px;">:</strong>
+                                    <select id="re-startMin" class="form-select-sm mgr5">
+                                        <option th:each="min : ${#numbers.sequence(0, 59)}"
+                                                th:value="${min < 10 ? '0' + min : min}"
+                                                th:text="${min < 10 ? '0' + min : min}"></option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이용 종료시간</th>
+                            <td>
+                                <div>
+                                    <input type="text"
+                                           class="form-control-sm dtpk mgr5"
+                                           id="re-endDate">
+                                    <select id="re-endHour" class="form-select-sm mgr5">
+                                        <option th:each="hour : ${#numbers.sequence(0, 23)}"
+                                                th:value="${hour < 10 ? '0' + hour : hour}"
+                                                th:text="${hour < 10 ? '0' + hour : hour}"></option>
+                                    </select>
+                                    <strong style="padding: 3px 0; margin-right: 5px;">:</strong>
+                                    <select id="re-endMin" class="form-select-sm mgr5">
+                                        <option th:each="min : ${#numbers.sequence(0, 59)}"
+                                                th:value="${min < 10 ? '0' + min : min}"
+                                                th:text="${min < 10 ? '0' + min : min}"></option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>이용목적</th>
+                            <td>
+                                <textarea id="re-purpose" name="purpose" rows="2"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>신청일</th>
+                            <td>
+                                <span id="re-reqDtm" name="reqDtm"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>상태</th>
+                            <td>
+                                <span id="re-stts" name="stts" class="sta-unusual">거절</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>거절일</th>
+                            <td>
+                                <span id="re-apprvDtm" name="apprvDtm"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>거절일</th>
+                            <td>
+                                <textarea id="re-rejectReason" name="rejectReason" rows="2" disabled></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="btn-box-bottom">
+                <button type="button" class="btn orange mgr10" id="re-btnReq">다시 신청하기</button>
+                <button type="button" class="btn gray" onclick="popClose('.popup')">닫기</button>
+            </div>
+        </div>
+    </div>
+</th:block>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{common/fragments/head}">
+    <title>광주광역시 AI 영상 클리핑 시스템</title>
+</head>
+
+<script th:inline="javascript">
+    $(function() {
+        let hasMessage = /*[[${hasMessage}]]*/ false;
+        if (hasMessage) {
+            let message = /*[[${message}]]*/ "로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요.";
+            nobiz.alert(message, 'warning');
+        }
+    });
+    const changePasswd = () => {
+        let newPasswd = $('#newPasswd').val();
+        let confPasswd = $('#confPasswd').val();
+        let adminId = $('#userId').val();
+
+        if (newPasswd === '') {
+            alert('신규 비밀번호를 입력해주세요.');
+            $('#newPasswd').focus();
+            return false;
+        }
+        if (confPasswd === '') {
+            alert('비밀번호 확인을 입력해주세요.');
+            $('#confPasswd').focus();
+            return false;
+        }
+        if (newPasswd !== confPasswd) {
+            alert('비밀번호가 일치하지 않습니다. 다시 입력해 주세요.');
+            $('#confPasswd').val('').focus();
+            return false;
+        }
+
+        let params = {adminId : adminId, passwd : newPasswd};
+        let result = AICS.put("/user/modifyTempPasswd", params, null);
+        result.then(data => {
+            alert(data.message);
+            popClose('.popup');
+            location.href = '/login-page';
+        });
+    }
+</script>
+
+<body>
+    <div id="wrap" class="user-wrap">
+        <div class="login-wrap">
+            <div class="login-container">
+                <div class="login-logo">
+                    <a href="">
+                        <p><img th:src="@{/image/contents/img-logo.png}" alt="logo" /></p>
+                        <p>AI 영상 클리핑 시스템</p>
+                    </a>
+                </div>
+                <div class="login-content">
+                    <p class="tit">USER LOGIN</p>
+                    <form id="loginForm" th:action="@{/login/login-process}" method="POST" class="form-label">
+                        <!-- form 에서 사용할 시 crsf 토큰 부여 방법-->
+                        <input type="hidden" id="csrfToken" name="_csrf" th:value="${_csrf.token}">
+
+                        <input type="text" id="userId" name="userId" class="form-control mgb20 log-id" th:value="${userId}"  placeholder="아이디를 입력해주세요."/>
+                        <input type="password" id="password" name="password" class="form-control mgb30 log-pw" placeholder="비밀번호를 입력해주세요.">
+
+                        <button type="submit" class="btn login mgb20">로그인</button>
+                        <button type="button" class="btn login" th:onclick="|location.href='@{/main}'|">돌아가기</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-bg" style="display: none;"></div>
+    <div th:if="${showPopup}">
+        <!-- 팝업 내용을 별도의 HTML 파일로 분리 -->
+        <div th:replace="~{login/popup/tempPasswd :: popup}"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="apprvPop">
+    <div class="popup dtl" style="display: none;">
+        <div class="tit"><span>이용자 등록 신청 조회</span>
+            <button class="x-btn" onclick="popClose('.dtl')"></button>
+        </div>
+        <div class="container">
+            <div class="result-container mgb30">
+                <input type="hidden" id="dtl-reqId">
+                <table>
+                    <tr>
+                        <th>신청일시</th>
+                        <td>
+                            <span id="dtl-reqDtm"></span>
+                        </td>
+                        <th>상태</th>
+                        <td>
+                            <span id="dtl-stts"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>유형</th>
+                        <td>
+                            <span id="dtl-typeNm"></span>
+                        </td>
+                        <th>소속명</th>
+                        <td>
+                            <span id="dtl-orgNm"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이용자명</th>
+                        <td>
+                            <span id="dtl-userNm"></span>
+                        </td>
+                        <th>아이디</th>
+                        <td>
+                            <span id="dtl-userId"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>연락처</th>
+                        <td>
+                            <span id="dtl-telNo"></span>
+                        </td>
+                        <th>이메일</th>
+                        <td>
+                            <span id="dtl-emailAddr"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이용시작시간</th>
+                        <td>
+                            <span id="dtl-startDtm"></span>
+                        </td>
+                        <th>이용종료시간</th>
+                        <td>
+                            <span id="dtl-endDtm"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이용목적</th>
+                        <td colspan="3">
+                            <textarea id="dtl-purpose" rows="2" readonly></textarea>
+                        </td>
+                    </tr>
+                    <tr class="tr-reject tr-1">
+                        <th>거절사유</th>
+                        <td colspan="3">
+                            <textarea id="dtl-rejectReason" name="rejectReason" rows="2"></textarea>
+                        </td>
+                    </tr>
+                    <tr class="tr-reject tr-2">
+                        <th>거절일시</th>
+                        <td>
+                            <span id="dtl-rejectDtm"></span>
+                        </td>
+                        <th>거절관리자</th>
+                        <td>
+                            <span id="dtl-rejectId"></span>
+                        </td>
+                    </tr>
+                    <tr class="tr-apprv">
+                        <th>승인일시</th>
+                        <td>
+                            <span id="dtl-apprvDtm"></span>
+                        </td>
+                        <th>승인관리자</th>
+                        <td>
+                            <span id="dtl-apprvId"></span>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="btn-box-bottom mgt30">
+                <button type="button" class="btn blue mgr10" id="dtl-btnApprv" style="display: none;">승인</button>
+                <button type="button" class="btn orange mgr10" id="dtl-btnReject" style="display: none;">거절</button>
+                <button type="button" class="btn gray" id="dtl-btnCancel">닫기</button>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nobiz.aics_u.repository.mapper.UserMapper">
+    <select id="selectUserById" resultType="user">
+        select  user_id,
+                user_nm,
+                passwd,
+                tel_no,
+                email_addr,
+                type_id,
+                org_nm,
+                start_dtm,
+                end_dtm,
+                to_char(create_dtm, 'YYYY-mm-dd HH24:MI:SS') as create_dtm,
+                to_char(update_dtm, 'YYYY-mm-dd HH24:MI:SS') as update_dtm,
+                create_id,
+                update_id,
+                temp_passwd_yn,
+                stts,
+                reg_type
+        from    tb_user
+        <where>
+            user_id = #{userId}
+        </where>
+    </select>
+
+
+    <select id="selectExistsUserId" resultType="boolean">
+        select exists (
+            select 1 from tb_user where user_id = #{userId}
+            union
+            select 1 from tb_user_req where user_id = #{userId}
+        ) as user_exists
+    </select>
+
+    <select id="selectUserIdAndStts" resultType="userRegSearch">
+        select 	mem.user_id
+                ,mem.user_nm
+                ,mem.email_addr
+                ,mem.tel_no
+                ,cd.code_text as stts
+        from tb_user as mem
+        left join tb_code as cd on cd.code = mem.stts
+        <where>
+            mem.user_nm = #{userNm}
+            and mem.email_addr = #{emailAddr}
+            and mem.tel_no = #{telNo}
+        </where>
+    </select>
+
+
+    <update id="updateUser" parameterType="userUpdate">
+        update tb_user
+        set
+             update_id = #{loginUserId}
+            ,update_dtm = now()
+        <if test="telNo != null and !telNo.equals('')">
+            ,tel_no = #{telNo}
+        </if>
+        <if test="emailAddr != null and !emailAddr.equals('')">
+            ,email_addr = #{emailAddr}
+        </if>
+        <if test="startDtm != null and !startDtm.equals('')">
+            ,start_dtm = #{startDtm}
+        </if>
+        <if test="endDtm != null and !endDtm.equals('')">
+            ,end_dtm = #{endDtm}
+        </if>
+        <if test="reqType != null and !reqType.equals('')">
+            ,req_type = #{reqType}
+        </if>
+        <if test="stts != null and !stts.equals('')">
+            ,stts = #{stts}
+        </if>
+        <if test="passwd != null and !passwd.equals('')">
+            ,passwd = #{passwd}
+        </if>
+        where user_id = #{userId}
+    </update>
+
+    <update id="updateTempPasswd" parameterType="userTempPasswdUpdate">
+        update tb_user
+        set
+            passwd = #{passwd}, temp_passwd_yn = 'N',
+            update_id = #{userId}, update_dtm = now()
+        where
+            user_id = #{userId}
+    </update>
+
+    <update id="updatePasswd" parameterType="userPasswdUpdate">
+        update tb_user
+        set
+            passwd = #{newPasswd}, temp_passwd_yn = 'N',
+            update_id = #{userId}, update_dtm = now()
+        where
+            user_id = #{userId}
+    </update>
+
+</mapper>

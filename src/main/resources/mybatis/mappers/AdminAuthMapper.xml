@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nobiz.aics_u.repository.mapper.MenuMapper">
+
+    <select id="selectAllMenu" resultMap="menuResultMap">
+        select parent.menu_id as p_menu_id
+             ,parent.menu_text as p_menu_text
+             ,parent.link as p_link
+             ,child.menu_id
+             ,child.menu_text
+             ,child.link
+        from tb_admin_menu as child
+        inner join tb_admin_menu_auth as auth on child.menu_id = auth.menu_id and auth.auth_id = #{authId}
+        left join tb_admin_menu as parent on parent.menu_id = child.parent_menu_id
+        where child.depth = 2
+        and parent.use_yn = 'Y'
+        and parent.display_yn = 'Y'
+        and child.use_yn = 'Y'
+        and child.display_yn = 'Y'
+        order by child.menu_id
+    </select>
+
+    <resultMap id="menuResultMap" type="menuDto">
+        <id property="menuId" column="p_menu_id"/>
+        <result property="menuText" column="p_menu_text" />
+        <result property="link" column="p_link" />
+        <collection property="subMenus" ofType="menuDto">
+            <id property="menuId" column="menu_id"/>
+            <result property="menuText" column="menu_text" />
+            <result property="link" column="link" />
+        </collection>
+    </resultMap>
+
+</mapper>

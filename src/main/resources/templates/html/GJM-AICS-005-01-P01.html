@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />
+    <meta name="theme-color" content="#2D316C" />
+    <title>광주광역시 AI 영상 클리핑 시스템</title>
+    <link rel="stylesheet" type="text/css" href="../share/css/lightslider.css">
+    <link rel="stylesheet" type="text/css" href="../share/css/style.css">
+    <script type="text/javascript" src="../share/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../share/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../share/js/placeholder.js"></script>
+    <script type="text/javascript" src="../share/js/jquery.ellipsis.js"></script>
+    <script type="text/javascript" src="../share/js/owl.carousel.js"></script>
+    <script type="text/javascript" src="../share/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../share/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="../share/js/jstree.js"></script>
+    <script type="text/javascript" src="../share/js/swiper.min.js"></script>
+    <script type="text/javascript" src="../share/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../share/js/tui-pagination.js"></script>
+    <script type="text/javascript" src="../share/js/ui.js"></script>
+    <script>
+        $(function() {
+            // datatables 시작
+            new DataTable('#grid', {
+                // scrollY: 300,
+                paging: true,
+            } );
+            new DataTable('#grid2', {
+                // scrollY: 300,
+                paging: true,
+            } );
+            // datatables 끝
+        });
+    </script>
+</head>
+
+<body>
+    <div id="wrap">
+        <div class="inner">
+            <div class="header">
+                <div class="hd-ft">
+                    <button class="mobile-menu-btn"><span></span></button>
+                    <a href="GJM-AICS-002-01.html" class="logo">
+                        <img src="../share/image/contents/img-main-logo.png" alt="logo">
+                    </a>
+                </div>
+                <ul class="menu">
+                    <li>
+                        <a href="#none">클립영상관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">현황통계관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">클리핑요청관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">이용자관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">이력관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">시스템관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="utill">
+                    <li class="manager">관리자<b>홍길동</b>님</li>
+                    <li class="alarm dot"><a href=""><span></span></a></li>
+                    <li class="mypage"><a href="">내정보관리</a></li>
+                    <li class="logout"><a href="">로그아웃</a></li>
+                </ul>
+            </div>
+            <div class="contents"></div>
+            <div class="footer">
+                Copyright ⓒ 2024 Gwangju Metropolitan City. All Rights Reserved.
+            </div>
+        </div>
+    </div>
+    <div class="modal-bg"></div>
+    <div class="popup">
+        <div class="tit"><span>클리핑 수동 요청</span><button class="x-btn" onclick="popClose('.popup')"></button></div>
+        <div class="container">
+            <div class="sub-tit">클리핑 정책</div>
+            <div class="srch-container mgb30">
+                <div class="int-area">
+                    <div>
+                        <label class="form-label">식별개체</label>
+                        <ul class="in-flx chk-box">
+                            <li>
+                                <input class="form-check-input check-all" type="checkbox" id="ck01">
+                                <label class="form-check-label" for="ck01">전체</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input" type="checkbox" id="ck02">
+                                <label class="form-check-label" for="ck02">사람</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input" type="checkbox" id="ck03">
+                                <label class="form-check-label" for="ck03">개</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input" type="checkbox" id="ck04">
+                                <label class="form-check-label" for="ck04">고양이</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input" type="checkbox" id="ck05">
+                                <label class="form-check-label" for="ck05">자동차</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input" type="checkbox" id="ck06">
+                                <label class="form-check-label" for="ck06">오토바이</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input" type="checkbox" id="ck07">
+                                <label class="form-check-label" for="ck07">휠체어</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input" type="checkbox" id="ck08">
+                                <label class="form-check-label" for="ck08">유모차</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input" type="checkbox" id="ck09">
+                                <label class="form-check-label" for="ck09">번호판</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input" type="checkbox" id="ck10">
+                                <label class="form-check-label" for="ck10">불꽃</label>
+                            </li>
+                            <li>
+                                <input class="form-check-input" type="checkbox" id="ck11">
+                                <label class="form-check-label" for="ck11">연기</label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <label class="form-label">영상 시작 일자</label>
+                        <input type="text" id="datepicker01" class="form-control dtpk" value="2023.01.01">
+                    </div>
+                    <div>
+                        <label class="form-label">영상 종료 일자</label>
+                        <input type="text" id="datepicker02" class="form-control dtpk" value="2023.01.01">
+                    </div>
+                    <div>
+                        <label class="form-label">영상 시작 시간</label>
+                        <select class="form-select" style="width: 80px;">
+                            <option selected>시간</option>
+                            <option value="1">00</option>
+                            <option value="2">01</option>
+                        </select>
+                        <select class="form-select" style="width: 80px;">
+                            <option selected>초</option>
+                            <option value="1">00</option>
+                            <option value="2">01</option>
+                        </select>
+                        <select class="form-select" style="width: 80px;">
+                            <option selected>분</option>
+                            <option value="1">00</option>
+                            <option value="2">01</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label">영상 종료 시간</label>
+                        <select class="form-select" style="width: 80px;">
+                            <option selected>시간</option>
+                            <option value="1">00</option>
+                            <option value="2">01</option>
+                        </select>
+                        <select class="form-select" style="width: 80px;">
+                            <option selected>초</option>
+                            <option value="1">00</option>
+                            <option value="2">01</option>
+                        </select>
+                        <select class="form-select" style="width: 80px;">
+                            <option selected>분</option>
+                            <option value="1">00</option>
+                            <option value="2">01</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="sorting-grid-box">
+                <div>
+                    <div class="sub-t-add">
+                        <div class="sub-tit">전체 CCTV 목록</div>
+                        <span>50개</span>
+                    </div>
+                    <table id="grid">
+                        <colgroup>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="" name=""></th>
+                                <th>CCTV ID</th>
+                                <th>이름</th>
+                                <th>유형</th>
+                                <th>지역1</th>
+                                <th>지역2</th>
+                                <th>지역3</th>
+                                <th>계</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th class="t-ctr"><input type="checkbox" id="" name=""></th>
+                                <td class="t-lft">CCTV_001</td>
+                                <td class="t-rgt">CCTV_이름1</td>
+                                <td class="t-rgt">VMS1</td>
+                                <td class="t-rgt">지역1</td>
+                                <td class="t-rgt">지역2</td>
+                                <td class="t-rgt">지역3</td>
+                                <td class="t-rgt"><span class="status normal"></span></td>
+                            </tr>
+                            <tr>
+                                <th class="t-ctr"><input type="checkbox" id="" name=""></th>
+                                <td class="t-lft">CCTV_001</td>
+                                <td class="t-rgt">CCTV_이름1</td>
+                                <td class="t-rgt">VMS1</td>
+                                <td class="t-rgt">지역1</td>
+                                <td class="t-rgt">지역2</td>
+                                <td class="t-rgt">지역3</td>
+                                <td class="t-rgt"><span class="status normal"></span></td>
+                            </tr>
+                        </tbody>
+                    </table> <!-- 그리드 div -->
+                </div>
+                <div class="arrow-btn-box">
+                    <button type="button" class="btn"></button><button type="button" class="btn"></button>
+                </div>
+                <div>
+                    <div class="sub-t-add">
+                        <div class="sub-tit">클리핑 대상 CCTV 목록</div>
+                        <span>3개</span>
+                    </div>
+                    <table id="grid2">
+                        <colgroup>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="" name=""></th>
+                                <th>CCTV ID</th>
+                                <th>이름</th>
+                                <th>유형</th>
+                                <th>지역1</th>
+                                <th>지역2</th>
+                                <th>지역3</th>
+                                <th>계</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th class="t-ctr"><input type="checkbox" id="" name=""></th>
+                                <td class="t-lft">CCTV_001</td>
+                                <td class="t-rgt">CCTV_이름1</td>
+                                <td class="t-rgt">VMS1</td>
+                                <td class="t-rgt">지역1</td>
+                                <td class="t-rgt">지역2</td>
+                                <td class="t-rgt">지역3</td>
+                                <td class="t-rgt"><span class="status normal"></span></td>
+                            </tr>
+                            <tr>
+                                <th class="t-ctr"><input type="checkbox" id="" name=""></th>
+                                <td class="t-lft">CCTV_001</td>
+                                <td class="t-rgt">CCTV_이름1</td>
+                                <td class="t-rgt">VMS1</td>
+                                <td class="t-rgt">지역1</td>
+                                <td class="t-rgt">지역2</td>
+                                <td class="t-rgt">지역3</td>
+                                <td class="t-rgt"><span class="status normal"></span></td>
+                            </tr>
+                        </tbody>
+                    </table> <!-- 그리드 div -->
+                </div>
+            </div>
+            <div class="btn-box-bottom mgt30">
+                <button type="button" class="btn blue mgr10" onclick="popClose('.popup')">클리핑 요청</button><button type="button" class="btn gray" onclick="popClose('.popup')">닫기</button>
+            </div>
+        </div>
+    </div>
+</body>
+<link rel="stylesheet" href="../share/css/tui-custom.css" />
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      th:fragment="headerFragment">
+
+<div class="header">
+    <div class="hd-ft">
+        <button class="mobile-menu-btn"><span></span></button>
+        <a th:href="@{/dashboard}" class="logo">
+            <img th:src="@{/image/contents/img-main-logo.png}" alt="logo">
+        </a>
+    </div>
+    <ul class="menu">
+        <li>
+            <a th:href="@{/clip-srch}">클립영상검색</a>
+        </li>
+        <li>
+            <a th:href="@{/user-clip-req}">이용신청내역</a>
+        </li>
+        <li>
+            <a href="#none">클립영상이용</a>
+        </li>
+        <!--<li th:each="menu : ${session.menus}">
+            <a href="#none" th:text="${menu.menuText}"></a>
+            <ul th:if="${menu.subMenus != null}">
+                <li th:each="subMenu : ${menu.subMenus}">
+                    <a th:href="@{${subMenu.link}}" th:text="${subMenu.menuText}"></a>
+                </li>
+            </ul>
+        </li>-->
+    </ul>
+    <form id="logoutForm" th:action="@{/logout}" method="post"></form>
+    <ul class="utill" th:object="${session.loginSession}">
+        <li class="timeout"><span></span><strong th:text="${session.period}"></strong></li>
+        <li class="manager">이용자<b th:text="*{loginUserNm}">홍길동</b>님</li>
+<!--        <li class="alarm dot"><a href=""><span></span></a>-->
+<!--            <ul>-->
+<!--                <li><a href=""><span>등록 신청</span><strong>3</strong></a></li>-->
+<!--                <li><a href=""><span>이용 신청</span><strong>44</strong></a></li>-->
+<!--            </ul>-->
+<!--        </li>-->
+        <li class="mypage"><a href="javascript:popOpen('.mod-pw')">내정보관리</a></li>
+        <li class="logout">
+            <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">로그아웃</a>
+        </li>
+    </ul>
+</div>
+<div th:replace="~{login/popup/modifyPasswd :: modifyPasswd}"></div>
+</html>

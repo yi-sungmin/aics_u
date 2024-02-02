@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      th:fragment="navFragment">
+
+<style>
+    /* 추가한 스타일 */
+    .navbar-nav {
+        display: flex;
+        justify-content: space-between; /* 메뉴 아이템 간의 간격을 동일하게 설정 */
+        width: 75%; /* 전체 너비를 차지하도록 설정 */
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#" style="margin-right:50px;">메뉴</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="cripping-manger" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        클립 영상 관리
+                    </a>
+                    <ul class="dropdown-menu dropdown-dark" aria-labelledby="cripping-manger">
+                        <li><a class="dropdown-item" href="#" th:href="@{/media}">클립 영상 내역</a></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{/grid-test}">그리드 테스트 메뉴</a></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{/schedule/add}">스케줄 테스트</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="stat-manger" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        현황 통계 관리
+                    </a>
+                    <ul class="dropdown-menu dropdown-dark" aria-labelledby="stat-manger">
+                        <li><a class="dropdown-item" href="#" th:href="@{/media}">클립 영상 통계</a></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{/media}">식별 객체 통계</a></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{/media}">처리 현황 통계</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="request-manage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        클리핑 요청 관리
+                    </a>
+                    <ul class="dropdown-menu dropdown-dark" aria-labelledby="request-manage">
+                        <li><a class="dropdown-item" href="#" th:href="@{/media}">클리핑 수동 요청</a></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{/media}">클리핑 수동 요청</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="user-manage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        이용자 관리
+                    </a>
+                    <ul class="dropdown-menu dropdown-dark" aria-labelledby="user-manage">
+                        <li><a class="dropdown-item" href="#" th:href="@{/media}">이용자 정보 관리</a></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{/media}">이용자 정보 관리</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="history-manage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        이력 관리
+                    </a>
+                    <ul class="dropdown-menu dropdown-dark" aria-labelledby="history-manage">
+                        <li><a class="dropdown-item" href="#" th:href="@{/media}">미정</a></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{/media}">미정</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="system-manage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        시스템 관리
+                    </a>
+                    <ul class="dropdown-menu dropdown-dark" aria-labelledby="system-manage">
+                        <li><a class="dropdown-item" href="#" th:href="@{/media}">관리자 관리</a></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{/media}">서버 관리</a></li>
+                        <li><a class="dropdown-item" href="#" th:href="@{/media}">권한 관리</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <form th:action="@{/logout}" method="post">
+<!--            <input type="hidden" id="csrfToken" name="_csrf" th:value="${_csrf.token}">-->
+            <button class="" style="text-align: right;">로그아웃</button>
+        </form>
+
+    </div>
+</nav>
+</html>

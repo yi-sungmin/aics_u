@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nobiz.aics_u.repository.mapper.ClipSrchMapper">
+
+    <sql id="allClipSearchSql">
+        select c.clip_id
+                ,f.file_id
+                ,f.file_nm
+                ,to_char(c.create_dtm, 'YYYY-mm-dd HH24:MI:SS') as create_dtm
+                ,to_char(m.create_dtm, 'YYYY-mm-dd HH24:MI:SS') as mask_create_dtm
+                ,c.clip_stts
+                ,c.mask_stts
+                ,f.file_type
+                ,case
+                    when f.file_size is null then 0
+                    else f.file_size
+                end as clip_size
+                ,case
+                    when m.file_size is null then 0
+                    else m.file_size
+                end as mask_size
+                ,t.object_type
+                ,case
+                    when t.thumb_cnt is null then 0
+                    else t.thumb_cnt
+                end as thumb_cnt
+        from tb_clip_data as c
+        inner join tb_clip_file as f on f.file_type = '11001' and c.clip_id = f.clip_id
+        <if test="objectTypes != null and objectTypes.size() > 0">
+        inner join (
+            select clip_id
+            from tb_clip_file
+            where file_type = '11003'
+            <choose>
+                <when test="operation.equals('and')">
+                    and object_id in
+                    <foreach collection="objectTypes" item="item" open="(" separator="," close=")">
+                    #{item}
+                    </foreach>
+                    group by clip_id
+                    having count(distinct object_id) = #{objectSize}
+                </when>
+                <otherwise>
+                    and
+                    <foreach collection="objectTypes" item="item" open="(" separator="or" close=")">
+                        object_id = #{item}
+                    </foreach>
+                    group by clip_id
+                </otherwise>
+            </choose>
+        ) as obj on obj.clip_id = c.clip_id
+        </if>
+        left join (
+            select f.clip_id, f.file_size, f.create_dtm
+            from tb_clip_file as f
+            where f.file_type = '11002'
+        ) as m on m.clip_id = c.clip_id
+        left join (
+            select f.clip_id,
+                   count(f.file_id) as thumb_cnt,
+                   STRING_AGG(cd.code_text, ', ') AS object_type
+            from tb_clip_file as f,
+                 tb_code as cd
+            where f.object_id = cd.code
+            and f.file_type = '11003'
+            group by f.clip_id
+        ) as t on t.clip_id = c.clip_id
+        <where>
+            <if test="(startDate != null and !startDate.equals('')) and (endDate != null and !endDate.equals(''))">
+                and c.create_dtm between #{startDate}::date and #{endDate}::date + 1
+            </if>
+            <if test="stts != null and !stts.equals('')">
+                and (c.clip_stts = #{stts} or c.mask_stts = #{stts})
+            </if>
+        </where>
+        order by create_dtm
+        <choose>
+            <when test="ordering.equals('desc')">
+                desc
+            </when>
+            <otherwise>
+                asc
+            </otherwise>
+        </choose>
+    </sql>
+
+    <select id="selectAllClipSrch" resultType="clipSrch">
+        <include refid="common.pager.PagingStart"/>
+        <include refid="allClipSearchSql"/>
+        <include refid="common.pager.PagingEnd"/>
+    </select>
+
+    <select id="selectAllClipSrchCnt" resultType="int">
+        select count(subQuery.clip_id)
+        from (<include refid="allClipSearchSql"/>) as subQuery
+    </select>
+
+    <sql id="allThumbSql">
+        select 	  f.clip_id
+                 ,f.file_id
+                 ,f.file_nm
+                 ,cd.code_text as object_type
+                 ,f.object_id
+                 ,f.bbox_left
+                 ,f.bbox_top
+                 ,f.bbox_right
+                 ,f.bbox_bottom
+                 ,to_char(f.create_dtm, 'YYYY-MM-DD HH24:MI:SS') as create_dtm
+        from tb_clip_file as f
+        left join tb_code as cd on cd.code = f.object_id
+        where f.clip_id = #{clipId}
+        and f.file_type = #{fileType}
+    </sql>
+
+    <select id="selectAllThumbById" resultType="clipThumb">
+        <include refid="common.pager.PagingStart"/>
+        <include refid="allThumbSql"/>
+        <include refid="common.pager.PagingEnd"/>
+    </select>
+
+    <select id="selectAllThumbByIdCnt" resultType="int">
+        select count(subQuery.clip_id)
+        from (<include refid="allThumbSql"/>) as subQuery
+    </select>
+
+</mapper>

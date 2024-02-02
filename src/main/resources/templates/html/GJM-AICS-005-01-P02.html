@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />
+    <meta name="theme-color" content="#2D316C" />
+    <title>광주광역시 AI 영상 클리핑 시스템</title>
+    <link rel="stylesheet" type="text/css" href="../share/css/lightslider.css">
+    <link rel="stylesheet" type="text/css" href="../share/css/style.css">
+    <script type="text/javascript" src="../share/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../share/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../share/js/placeholder.js"></script>
+    <script type="text/javascript" src="../share/js/jquery.ellipsis.js"></script>
+    <script type="text/javascript" src="../share/js/owl.carousel.js"></script>
+    <script type="text/javascript" src="../share/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../share/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="../share/js/jstree.js"></script>
+    <script type="text/javascript" src="../share/js/swiper.min.js"></script>
+    <script type="text/javascript" src="../share/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../share/js/tui-pagination.js"></script>
+    <script type="text/javascript" src="../share/js/ui.js"></script>
+    <script>
+        $(function() {
+            // datatables 시작
+            new DataTable('#grid', {
+                // scrollY: 300,
+                paging: true,
+            } );
+        });
+    </script>
+</head>
+
+<body>
+    <div id="wrap">
+        <div class="inner">
+            <div class="header">
+                <div class="hd-ft">
+                    <button class="mobile-menu-btn"><span></span></button>
+                    <a href="GJM-AICS-002-01.html" class="logo">
+                        <img src="../share/image/contents/img-main-logo.png" alt="logo">
+                    </a>
+                </div>
+                <ul class="menu">
+                    <li>
+                        <a href="#none">클립영상관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">현황통계관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">클리핑요청관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">이용자관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">이력관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">시스템관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="utill">
+                    <li class="manager">관리자<b>홍길동</b>님</li>
+                    <li class="alarm dot"><a href=""><span></span></a></li>
+                    <li class="mypage"><a href="">내정보관리</a></li>
+                    <li class="logout"><a href="">로그아웃</a></li>
+                </ul>
+            </div>
+            <div class="contents"></div>
+            <div class="footer">
+                Copyright ⓒ 2024 Gwangju Metropolitan City. All Rights Reserved.
+            </div>
+        </div>
+    </div>
+    <div class="modal-bg"></div>
+    <div class="popup">
+        <div class="tit"><span>클리핑 수동 요청 상세 조회</span><button class="x-btn" onclick="popClose('.popup')"></button></div>
+        <div class="container">
+            <div class="sub-tit">클리핑 정책</div>
+            <div class="srch-container mgb30">
+                <div class="int-area">
+                    <div>
+                        <label class="form-label">식별개체</label>
+                        <ul class="in-flx chk-box">
+                            <li>사람</li>
+                            <li>개</li>
+                            <li>고양이</li>
+                            <li>차량</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <label class="form-label">대상 CCTV</label>
+                        <ul class="in-flx chk-box">
+                            <li>CCTV_001 : CCTV NAME</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <label class="form-label">영상 시작 일시</label>
+                        <ul class="in-flx chk-box">
+                            <li>2023.01.01 10:00:00</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <label class="form-label">영상 종료 일시</label>
+                        <ul class="in-flx chk-box">
+                            <li>2023.01.01 10:00:00</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <label class="form-label">식별 기준 시간</label>
+                        <ul class="in-flx chk-box">
+                            <li>5초</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <label class="form-label">클립 최대 시간</label>
+                        <ul class="in-flx chk-box">
+                            <li>60초</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <label class="form-label">요청 일시</label>
+                        <ul class="in-flx chk-box">
+                            <li>2023.01.01 10:00:00</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <label class="form-label">완료 일시</label>
+                        <ul class="in-flx chk-box">
+                            <li>2023.01.01 10:00:00</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <label class="form-label">원본 영상 크기</label>
+                        <ul class="in-flx chk-box">
+                            <li>298.4MB</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <label class="form-label">클립 영상 생성 개수</label>
+                        <ul class="in-flx chk-box">
+                            <li>8개</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <label class="form-label">요청자</label>
+                        <ul class="in-flx chk-box">
+                            <li>admin04</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <label class="form-label">상태</label>
+                        <ul class="in-flx chk-box">
+                            <li>완료</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="sub-t-add">
+                    <div class="sub-tit">클립 영상 생성 내역</div>
+                    <span>50개</span>
+                </div>
+                <table id="grid">
+                    <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>클립 영상 파일명</th>
+                            <th>식별 객체</th>
+                            <th>파일 크기</th>
+                            <th>영상 길이</th>
+                            <th>클립 생성일</th>
+                            <th>비식별화 완료일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="t-lft">20230901_CCTV0001_0001</th>
+                            <td class="t-lft">사람</td>
+                            <td class="t-rgt">8.3 MB</td>
+                            <td class="t-rgt">223 초</td>
+                            <td class="t-rgt">2023.11.03</td>
+                            <td class="t-rgt"></td>
+                        </tr>
+                        <tr>
+                            <th class="t-lft">20230901_CCTV0001_0001</th>
+                            <td class="t-lft">사람</td>
+                            <td class="t-rgt">8.3 MB</td>
+                            <td class="t-rgt">223 초</td>
+                            <td class="t-rgt">2023.11.03</td>
+                            <td class="t-rgt"></td>
+                        </tr>
+                    </tbody>
+                </table> <!-- 그리드 div -->
+            </div>
+            <div class="btn-box-bottom mgt30">
+                <button type="button" class="btn gray" onclick="popClose('.popup')">닫기</button>
+            </div>
+        </div>
+    </div>
+</body>
+<link rel="stylesheet" href="../share/css/tui-custom.css" />
+</html>

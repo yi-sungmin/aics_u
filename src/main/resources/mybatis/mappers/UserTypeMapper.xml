@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nobiz.aics_u.repository.mapper.UserTypeMapper">
+
+	<select id="selectAllUserType" resultType="userType">
+		select 	type_id
+				, type_nm
+				, ord
+				, use_yn
+				, create_id
+				, to_char(create_dtm, 'YYYY-mm-dd HH24:MI:SS') as create_dtm
+		from tb_user_type as ut
+		<where>
+			<if test="useYn != null and !useYn.equals('')">
+				use_yn = #{useYn}
+			</if>
+		</where>
+		order by ord
+	</select>
+</mapper>

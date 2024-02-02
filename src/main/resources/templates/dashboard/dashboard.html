@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{common/layout/default-layout}"
+      layout:fragment="content">
+<head>
+    <script th:inline="javascript">
+        $(function() {
+            // 차트 공통
+            const Chart = toastui.Chart;
+            const theme1 = {
+                series: {
+                    barWidth: 10,
+                    colors: ['#1D88E7', '#D97962'],
+                    areaOpacity: 1,
+                },
+            };
+            const theme2 = {
+                series: {
+                    barWidth: 20,
+                    colors: ['#0C476C', '#3C8687', '#78BE9A', '#A7DCA8', '#CFF09F', '#00A0AE', '#13C8B5', '#F7C407', '#E0E4CD', '#FB6A01'],
+                    areaOpacity: 1,
+                },
+            };
+            const theme3 = {
+                series: {
+                    barWidth: 20,
+                    colors: ['#8BC7D2'],
+                    areaOpacity: 1,
+                },
+            };
+
+            // 최근 7일간 클립 통계
+            const el1 = document.getElementById('chart1');
+            const data1 = {
+                categories: [
+                    '10-01',
+                    '10-02',
+                    '10-03',
+                    '10-04',
+                    '10-05',
+                    '10-06',
+                    '10-07',
+                ],
+                series: [
+                    {
+                        name: '클리핑',
+                        data: [5000, 3000, 5000, 7000, 6000, 4000, 1000],
+                    },
+                    {
+                        name: '비식별화',
+                        data: [8000, 4000, 7000, 2000, 6000, 3000, 5000],
+                    },
+                ],
+            };
+            const options1 = {
+                chart: {
+                    width: 700,
+                    height: 178,
+                },
+                theme: theme1,
+            };
+            const chart1 = Chart.columnChart({ el: el1, data: data1, options: options1 });
+
+            // 최근 7일간 처리 통계
+            const el2 = document.getElementById('chart2');
+            const data2 = {
+                categories: [
+                    '10-01',
+                    '10-02',
+                    '10-03',
+                    '10-04',
+                    '10-05',
+                    '10-06',
+                    '10-07',
+                ],
+                series: [
+                    {
+                        name: '클리핑',
+                        data: [5000, 3000, 5000, 7000, 6000, 4000, 1000],
+                    },
+                    {
+                        name: '비식별화',
+                        data: [8000, 4000, 7000, 2000, 6000, 3000, 5000],
+                    },
+                ],
+            };
+            const options2 = {
+                chart: {
+                    width: 700,
+                    height: 178,
+                },
+                theme: theme1,
+            };
+            const chart2 = Chart.columnChart({ el: el2, data: data2, options: options2 });
+
+            // 최근 7일간 식별 객체 통계
+            const el3 = document.getElementById('chart3');
+            const data3 = {
+                categories: [
+                    '10-01',
+                    '10-02',
+                    '10-03',
+                    '10-04',
+                    '10-05',
+                    '10-06',
+                    '10-07',
+                ],
+                series: [
+                    {
+                        name: '사람',
+                        data: [4007, 5067, 7221, 8358, 8500, 7730, 4962, 2670, 6700, 776, 131],
+                    },
+                    {
+                        name: '개',
+                        data: [3805, 4728, 7244, 8291, 8530, 8126, 5483, 3161, 1274, 2217, 377],
+                    },
+                    {
+                        name: '고양이',
+                        data: [1392, 1671, 2092, 2339, 2611, 2511, 1277, 6145, 1713, 1974, 194],
+                    },
+                    {
+                        name: '자동차',
+                        data: [1320, 1558, 1927, 2212, 2556, 2433, 1304, 8076, 3800, 6057, 523],
+                    },,
+                    {
+                        name: '오토바이',
+                        data: [3805, 4728, 7244, 8291, 8530, 8126, 5483, 3161, 1274, 2217, 377],
+                    },
+                    {
+                        name: '번호판',
+                        data: [1392, 1671, 2092, 2339, 2611, 2511, 1277, 6145, 1713, 1974, 194],
+                    },
+                    {
+                        name: '휠체어',
+                        data: [1320, 1558, 1927, 2212, 2556, 2433, 1304, 8076, 3800, 6057, 523],
+                    },,
+                    {
+                        name: '유모차',
+                        data: [3805, 4728, 7244, 8291, 8530, 8126, 5483, 3161, 1274, 2217, 377],
+                    },
+                    {
+                        name: '연기',
+                        data: [1392, 1671, 2092, 2339, 2611, 2511, 1277, 6145, 1713, 1974, 194],
+                    },
+                    {
+                        name: '불꽃',
+                        data: [1320, 1558, 1927, 2212, 2556, 2433, 1304, 8076, 3800, 6057, 523],
+                    },
+                ],
+            };
+            const options3 = {
+                chart: {
+                    width: 800,
+                    height: 185,
+                },
+                theme: theme2,
+                series: {
+                    column: {
+                        stack: {
+                            type: 'normal'
+                        }
+                    }
+                },
+            };
+            const chart3 = Chart.columnChart({ el: el3, data: data3, options: options3 });
+
+            // 최근 이용자 등록 현황
+            const el4 = document.getElementById('chart4');
+            const data4 = {
+                categories: [
+                    '10-01',
+                    '10-02',
+                    '10-03',
+                    '10-04',
+                    '10-05',
+                    '10-06',
+                    '10-07',
+                ],
+                series: [
+                    {
+                        name: '이용자',
+                        data: [40, 55, 76, 58, 107, 91, 105],
+                    },
+                ],
+            };
+            const options4 = {
+                chart: {
+                    width: 700,
+                    height: 185,
+                },
+                theme: theme3,
+            };
+            const chart4 = Chart.columnChart({ el: el4, data: data4, options: options4 });
+        });
+    </script>
+</head>
+
+<div class="contents">
+    <div class="main-inner">
+        <div class="num-box">
+            <div class="box">
+                <div class="head">
+                    <span>일간 처리 현황</span>
+                    <span class="add">2023.12.01</span>
+                </div>
+                <div class="cont-box">
+                    <div class="num-cont">
+                        <ul>
+                            <li class="tit">AI 클리핑</li>
+                            <li>
+                                <ul>
+                                    <li><b>128</b>파일</li>
+                                    <li><b>32</b>GB</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li class="tit">비식별화 처리</li>
+                            <li>
+                                <ul>
+                                    <li><b>128</b>파일</li>
+                                    <li><b>32</b>GB</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="head">
+                    <span>월간 처리 현황</span>
+                    <span class="add">2023.12.01</span>
+                </div>
+                <div class="cont-box">
+                    <div class="num-cont">
+                        <ul>
+                            <li class="tit">AI 클리핑</li>
+                            <li>
+                                <ul>
+                                    <li><b>329</b>파일</li>
+                                    <li><b>125</b>GB</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li class="tit">비식별화 처리</li>
+                            <li>
+                                <ul>
+                                    <li><b>329</b>파일</li>
+                                    <li><b>125</b>GB</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="head">
+                    <span>누적 처리 현황</span>
+                </div>
+                <div class="cont-box">
+                    <div class="num-cont">
+                        <ul>
+                            <li class="tit">AI 클리핑</li>
+                            <li>
+                                <ul>
+                                    <li><b>512</b>파일</li>
+                                    <li><b>312</b>GB</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li class="tit">비식별화 처리</li>
+                            <li>
+                                <ul>
+                                    <li><b>512</b>파일</li>
+                                    <li><b>312</b>GB</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="graph-box">
+            <div class="box">
+                <div class="head">
+                    <span>최근 7일간 클립 통계</span>
+                    <span class="add">파일/개수</span>
+                </div>
+                <div class="cont-box">
+                    <div id="chart1"></div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="head">
+                    <span>최근 7일간 처리 통계</span>
+                    <span class="add">용량/GB</span>
+                </div>
+                <div class="cont-box">
+                    <div id="chart2"></div>
+                </div>
+            </div>
+        </div>
+        <div class="graph-box">
+            <div class="box">
+                <div class="head">
+                    <span>최근 7일간 식별 객체 통계</span>
+                </div>
+                <div class="cont-box">
+                    <div id="chart3"></div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="head">
+                    <span>최근 이용자 등록 현황</span>
+                    <span class="add">명</span>
+                </div>
+                <div class="cont-box">
+                    <div id="chart4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

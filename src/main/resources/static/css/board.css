@@ -1,0 +1,232 @@
+@charset "utf-8";
+
+/* 검색단 */
+.search-box {position:relative; margin-bottom:20px; background-color: #f9f9f9; border:solid 1px #eeeeee; padding:0 15px; border-radius:3px;}
+.search-box div.floor {padding:7px 0; border-bottom: solid 1px #e7e7e7; min-height:40px;}
+.search-box.center div.floor {text-align: center;}
+.search-box div.floor:last-child {border-bottom:none;}
+.search-box > .floor-wrap.hidden {display:none;}
+.search-box a.btn {height:32px; line-height:30px; color:#fff;}
+.search-box input[type='text'],
+.search-box select,
+.search-box textarea {border-color:#caccda; height:32px; line-height:30px; color:#767676; font-size: .867em; color:#555; box-sizing: border-box; width: 162px;}
+.search-box input.keyword {width:440px;}
+.search-box p.checkbox,
+.search-box p.radio {margin-right:6px;}
+.search-box label.tit {margin-right:5px; font-weight:600; font-size: .867em; margin-left:30px; min-width:60px; color:#555555;}
+.search-box label.tit:first-child {margin-left:0;}
+.search-box label.tit:before {content:""; display:inline-block; width:3px; height:3px; background-color: #555555; vertical-align: middle; margin-right: 0.5em; margin-top:-4px;}
+.search-box p.guide {font-size: .867em; margin-bottom:5px;}
+.search-box p.guide.em {color:#ec561a; font-weight:600;}
+.search-box a.btn-search {display:table-cell; vertical-align: middle; width:100px; text-align: center; margin-left:30px; position:absolute; top:7px; bottom:7px; right:10px; height:calc(100% - 20px); font-size: 14px; font-weight: 500; min-height: 32px;}
+.search-box a.btn-search > span {position:absolute; display:inline-block; width:60px; height:30px; line-height: 30px; top:50%; left:50%; margin:-15px 0 0 -30px;}
+.search-box a.btn-search > span > span.fa {vertical-align: baseline;}
+
+span.arrow {padding-right: 16px; background:url("../img/common/bg_arrow.png") right 50% no-repeat; margin-right:5px;}
+
+.layout-box .search-box { border:none;  background:none; padding:0; margin-bottom:10px;}
+.layout-box .search-box > .floor {padding:0;}
+
+/* 테이블 공통 */
+.table-box {position:relative;}
+.table-box.scroll {background-color:#fdfdfd; border-bottom:solid 1px #e1e1e1;}
+.table-box div.tit {margin-bottom:8px; padding-left:0; position:relative;}
+.table-box div.tit:before {display:none;}
+.table-box div.tit > span:first-child {font-weight: 600; color:#555; font-size: 14px;}
+.table-box div.tit a.btn {height:26px; line-height: 24px;}
+.table-box div.tit > span.comment {font-size: .8em; vertical-align: bottom; color:#888; margin-left:10px;}
+.table-box table {background-color:#fff; border-top:solid 2px #5b5555; border-collapse:inherit;}
+.table-box table thead th {font-weight:600; color:#454e62; height:46px; padding:0 4px; border-bottom:solid 1px #5b5555;}
+.table-box table th,
+.table-box table td {border-bottom:solid 1px #e1e1e1; font-size: 14px; padding:9px 4px; color:#767676; transition:all 0.2s; text-align:center; word-break: break-all;}
+.table-box table td > * {vertical-align: baseline;}
+.table-box table td > img {max-width: 95%; display: block; margin:5px auto;}
+.table-box table th.must {font-weight: 600;}
+.table-box table th.must:before {content:"*"; display:inline-block; margin-right:4px;}
+.table-box table th.exp {background-color:#eef9fd !important;}
+.table-box table td.empty {height:90px; font-size: 1.067em;}
+.table-box table td.empty > span.fa {font-size: 1.333em; color:#aaa;}
+.table-box table td.empty > p {margin-top:12px;}
+.table-box table td.color01 {background-color:#f9f6f6 !important;}
+.table-box table td p {font-size: 14px;}
+.table-box table td p.para {margin:5px 0;}
+.table-box table tr > *:last-child {border-right:none;}
+.table-box + .comment {font-size: .8em; margin-top:8px;}
+.table-box + .comment > .red,
+.table-box + .comment > .blue {vertical-align: baseline; font-weight: 600;}
+.table-box + .comment > .red {color:#ea4d41;}
+.table-box + .comment > .blue {color:#4884cd;}
+
+.table-box.list {border-right:none;}
+.table-box.list table {border-top:none;}
+.table-box.list table thead th {height:60px; color:#585f66; border-color:#c9c9c9; font-size: 1.067em; font-weight: 200; border-top: solid 2px #232323;}
+.table-box.list table tr td {padding:14px 4px; border-color:#e9e9e9; min-height: 50px; font-weight: 200; font-size: 1em;}
+.table-box.list table tr td.title {font-weight: 500;}
+.table-box.list table tr td a:hover {text-decoration: underline;}
+.table-box.list table tr > *:last-child {border-right-color:#cdd4dd;}
+.table-box.list table tr.active td,
+.table-box.list table tr.active:hover td {background-color:#6b7de8 !important; color:#fff !important;}
+/* .table-box.list table tbody tr {cursor:pointer;}
+.table-box.list table tbody tr:hover td {background-color:#e2f1fb;} */
+.table-box.list table tbody tr.exp td,
+.table-box.list table tbody tr td.exp {background-color: #f1eeea !important; color:#555 !important; font-weight: 600; border-color:#dfdad5;}
+.table-box.list table tbody tr.alm td,
+.table-box.list table tbody tr td.alm {background-color: #f9f0f3 !important; color:#555 !important; font-weight: 600; border-color:#eadadf;}
+.table-box.list table tr.bt > * {border-top:solid 1px #cdd4dd;}
+.table-box.list table tr th.total {background-color: #e1eaf5 !important; font-weight: 600; border-right:solid 1px #dfdad5;}
+.table-box.list table tr td.total {background-color: #fdfdfd !important; font-weight: 600; border-right:solid 1px #dfdad5;}
+.table-box.list table td > img.ui-datepicker-trigger {display:inline-block; margin-left:5px;}
+
+.table-box.list.no-master table tbody tr {cursor: default;}
+.table-box.list.no-master table tbody tr:nth-child(2n) td,
+.table-box.list.no-master table tbody tr:hover td {background-color:#fff;}
+
+.table-box table td .icon {height:24px; line-height:22px; color:#fff; font-size: .733em; font-weight:600; border-radius:2px; vertical-align:middle; border:solid 1px #ccc; padding:0 7px 0 6px; text-align:center; margin-left:2px;}
+.table-box table td .icon.color01 {background-color:#769ce2; border-color:#5785d8;}
+.table-box table td .icon.color02 {background-color:#e27692; border-color:#d95779;}
+.table-box table td.minus {color:#ec561a;}
+
+.table-box table td a.btn {height:24px; line-height:22px; font-size: .8em;}
+.table-box.vertical table td a.btn {height:26px; line-height:24px; font-size: .8em;}
+
+/* 세로 */
+.table-box.vertical table {}
+.table-box.vertical tr > *:last-child {border-right:none;}
+.table-box.vertical tr > *.br {border-right:solid 1px #e1e1e1 !important;}
+.table-box.vertical table tbody th,
+.table-box.vertical table tbody td {height:40px; padding:0 3px; font-size: .933em; color:#575757;}
+.table-box.vertical table tbody th {background-color:#f7fafb; font-weight:500;}
+.table-box.vertical table tbody td {text-align:left; padding-left:10px; padding-right:10px; font-size: 14px;}
+.table-box.vertical table tbody td > input {max-width:100%;}
+.table-box.vertical table tbody td .label {font-weight: 500; margin-right:1em;}
+.table-box.vertical textarea {width:100%; min-height:140px;}
+.table-box.vertical tbody tr.exp th {background-color: #f1eeea; font-weight: 600; border-right:solid 1px #dfdad5;}
+.table-box.vertical tbody tr.exp th:last-child {border-right:none;}
+
+/* 세로 */
+.table-box.form table {border-left:solid 1px #fcfcfc;}
+.table-box.form table tbody th,
+.table-box.form table tbody td {height:40px; padding:0 3px; font-size: .933em; color:#575757;}
+.table-box.form table tbody th {background-color:#f7fafb; font-weight:500;}
+.table-box.form table tbody td {text-align:left; font-size: 14px; padding:0; position: relative;}
+.table-box.form table tbody td > input,
+.table-box.form table tbody td > select,
+.table-box.form table tbody td > textarea,
+.table-box.form table tbody td > .numeric-input,
+.table-box.form table tbody td > .file-upload,
+.table-box.form table tbody td > .file-upload > a.btn,
+.table-box.form table tbody td > a.btn {height:40px; line-height:40px; width:100%; border:none; border-radius: 0; font-size: .933em; float:left;}
+.table-box.form table tbody td > a.btn,
+.table-box.form table tbody td > .file-upload > a.btn {width:auto; text-align: center;}
+.table-box.form table tbody td > input:hover,
+.table-box.form table tbody td > select:hover,
+.table-box.form table tbody td > textarea:hover,
+.table-box.form table tbody td > .numeric-input:hover,
+.table-box.form table tbody td > .file-upload:hover {background-color:#fcfcfc;}
+.table-box.form table tbody td > input:focus,
+.table-box.form table tbody td > select:focus,
+.table-box.form table tbody td > textarea:focus,
+.table-box.form table tbody td > .numeric-input:focus,
+.table-box.form table tbody td > .file-upload:focus {background-color:#f9fcff; color:#6075ef;}
+.table-box.form table tbody td > input:read-only {background-color: #e9e9e9 !important;}
+.table-box.form table tbody td > .datepicker:read-only {background-color: #fff !important;}
+.table-box.form table tbody td > *.border {border:solid 1px #ddd; margin:4px 5px 4px 5px; box-sizing: border-box; width:calc(100% - 10px);}
+.table-box.form table tbody td .label {font-weight: 500; margin-right:1em;}
+.table-box.form table tbody td > a.btn.abs {position:absolute; top:0px; right:0;}
+.table-box.form table tbody td > .datepicker {width:100% !important;}
+.table-box.form table tbody td > img.ui-datepicker-trigger {margin-top:12px;}
+.table-box.form table tbody td > p.checkbox,
+.table-box.form table tbody td > p.radio {margin:5px;}
+.table-box.form textarea {width:100%; min-height:140px;}
+.table-box.form tbody tr.exp th {background-color: #f1eeea; font-weight: 600; border-right:solid 1px #dfdad5;}
+.table-box.form tbody tr.exp th:last-child {border-right:none;}
+.table-box.form table td > img.ui-datepicker-trigger {display:inline-block; margin-left:-30px;}
+.table-box.form table tr > *.blank {}
+
+.artice_contents {line-height:2.0em;}
+
+/* 테이블 타입 */
+.table-box.type01 table { border-top:solid 1px #a19e99;}
+.table-box.type01 table thead th {background-color: #f3f1ee; color:#706c65; border-bottom:solid 1px #e2ded7; border-right: solid 1px #e2ded7; padding:0; height:40px;}
+.table-box.type01 table tbody th {background-color:#f7fafb; border-right: solid 1px #e2ded7; font-size: .867em; font-weight:600;}
+.table-box.type01 table tbody td { border-right: solid 1px #e2ded7; font-size: 14px; padding:0 4px; color:#767676; height:30px;}
+.table-box.type01 table tr > *:last-child {border-right:none;}
+.table-box.type01 table tr > *.br {border-right:solid 1px #e2ded7 !important;}
+
+.table-box.type02 table {border-color:#ec7c39;}
+.table-box.type02 table tbody th {background-color:#fdfaf4;}
+
+.table-box.type03 table {border-color:#6d88d0;}
+.table-box.type03 table tbody th {background-color:#f4fbfd;}
+
+/* 테이블 - 달력인 경우 */
+.table-box.calendar table {border-top:none;}
+.table-box.calendar table thead th.ym {border:none; background-color:#5b5555; color:#fff; font-size: 1.067em; position:relative; height:42px; line-height:42px;}
+.table-box.calendar table thead th.ym > a.btn {width:20px; line-height:20px; height:20px; border:none; padding:0; border-radius:50%; position:absolute; top:12px; transition:all 0.2s; background-color:transparent; color:#fff;}
+.table-box.calendar table thead th.ym > a.btn:hover {background-color:#71a2e8;}
+.table-box.calendar table thead th.ym > a.btn.prev {left:10px;}
+.table-box.calendar table thead th.ym > a.btn.next {right:10px;}
+.table-box.calendar table thead th.ym > a.btn > span.fa {margin-right:0;}
+.table-box.calendar table thead tr th,
+.table-box.calendar table tbody tr td {border-right:solid 1px #e1e1e1; padding:0;}
+.table-box.calendar table tbody tr td {background-color:#fdfdfd; height:28px;}
+.table-box.calendar table tr > *:first-child {border-left:solid 1px #e1e1e1;}
+.table-box.calendar table td > a {display:block; width:100%; height:28px; line-height:28px; background-color: #fff;}
+.table-box.calendar table td > a:hover {background-color:#f2f8ff;}
+.table-box.calendar table td.event > a {background-color:#fcf9ee;}
+.table-box.calendar table td.today > a {font-weight:600; color:#444; border:solid 1px #444; line-height:22px;}
+.table-box.calendar table td.active > a {font-weight:600; color:#71a2e8; border:solid 2px #71a2e8; line-height:20px; background-color: #fff;}
+
+/* 테이블 - 타임라인인 경우 */
+.table-box.timeline table {border-top:solid 1px #e1e1e1;}
+.table-box.timeline table thead tr th,
+.table-box.timeline table tbody tr td {border-right:solid 1px #e1e1e1; padding:0; height:40px;}
+.table-box.timeline table td > a {display:block; width:100%; height:40px; line-height:40px; background-color: #fff;}
+.table-box.timeline table tr > *:first-child {border-left:solid 1px #e1e1e1;}
+.table-box.timeline table td.event > a {background-color:#fcf9ee;}
+
+/* 하단 */
+.bottom-area {margin-top:16px; min-height:36px; position: relative; clear: both;}
+.bottom-area a.btn {border-radius: 0; height:36px; line-height: 34px;}
+.bottom-area .btn-wrap {position:absolute;top:0;right:0;}
+.bottom-area .btn-wrap.left {left:0; right:auto;}
+.bottom-area .btn-wrap.center {right:50%; transform: translate(50%, 0);}
+.bottom-area .btn-wrap > a.btn {height:36px; line-height: 34px; font-size: .867em;}
+.bottom-area a.btn.btn-list {color:#fff; background-color: #444444; float:right; border:none; width:72px; text-align: center; margin-left: 10px;}
+
+/* 페이징 */
+.paging {text-align:center;}
+.paging li {display:inline;}
+.paging li a {display:inline-block; border:1px solid #dfdfdf; min-width:32px; height:32px; line-height:30px; margin:0 2px; text-align:center; font-weight:300; transition:all 0.2s; background-color: #fff; border-radius: 16px; font-size: .933em; font-weight: 200; color:#222222;}
+.paging li a:hover {border:1px solid #71a2e8;}
+.paging li.active > a {background-color:#f5f5f5; border-color:transparent;}
+.paging li.btn a {text-indent:-9999px; border-color:#fff; margin:0 1px; min-width:24px; position: relative;}
+.paging li.btn-first a:before,
+.paging li.btn-prev a:before,
+.paging li.btn-next a:before,
+.paging li.btn-last a:before {content:""; display: inline-block; font-family: "FontAwesome"; font-size: .933em; color:#cfcfcf; position: absolute; top:50%; left:50%; transform:translate(-50%, -50%); text-indent: 0;}
+.paging li.btn-first a:before {content:"\f048";}
+.paging li.btn-prev a:before {content:"\f053";}
+.paging li.btn-next a:before {content:"\f054";}
+.paging li.btn-last a:before {content:"\f051";}
+
+.top-area {font-size: .933em; color:#222;}
+.top-area span.total {margin-top: 8px;}
+.top-area span.total > * {vertical-align: baseline;}
+.top-area span.total > strong {font-weight: 500;}
+.top-area span.total > i.fa {margin-right: .5em; display: inline-block;}
+.top-area .search-box {background-color: transparent; padding:0; border:none; border-radius: 0; display: inline-block; float:right;}
+.top-area .search-box input[type='text'],
+.top-area .search-box select,
+.top-area .search-box textarea,
+.top-area .search-box > form > * {border-radius: 0px; height:36px; line-height: 34px; border: solid 1px #d3d3d3; font-size: .933em; color:#222222; vertical-align: middle; float:left; width:auto;}
+.top-area .search-box a.btn-search {margin-left: -1px; position: static; height:36px; line-height: 34px; color:#222; background-color: #fafafa; width:72px;}
+
+.table-box.view table tbody td {font-size: 1em; color:#222; height:50px;}
+.table-box.view table tbody td span.label {font-weight: 200; margin-left: 4em; min-width:60px;}
+.table-box.view table tbody td span.label:first-child {margin-left: 0;}
+.table-box.view table tbody td.contents {font-weight: 200; padding:30px; line-height: 2em;}
+.table-box.view table tbody td.contents img {max-width: calc(100% - 60px); height:auto !important;}
+a.attached-file {text-decoration: underline; font-weight: 400; color:#222;}
+
+.search-box > form {border:none !important;}

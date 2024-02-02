@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="modifyPasswd">
+    <div class="popup user-wrap mod-pw" style="display: none;">
+        <div class="tit"><span>임시 비밀번호 변경</span>
+            <button class="x-btn" onclick="popClose('.popup')"></button>
+        </div>
+        <div class="container">
+            <input type="hidden" id="mod-userId" name="userId" th:value="${session.loginSession.loginUserId}">
+            <div class="int-box mgb10">
+                <label class="form-label">기존 비밀번호</label>
+                <input type="password" id="mod-passwd" name="passwd" class="form-control rock" placeholder="기존 비밀번호.">
+            </div>
+            <div class="int-box mgb10">
+                <label class="form-label">신규 비밀번호</label>
+                <input type="password" id="mod-newPasswd" name="newPasswd" class="form-control rock" placeholder="신규 비밀번호">
+            </div>
+            <div class="int-box mgb50">
+                <label class="form-label">비밀번호 확인</label>
+                <input type="password" id="mod-confPasswd" name="confPasswd" class="form-control rock" placeholder="비밀번호 확인">
+            </div>
+            <div class="btn-box-bottom">
+                <button type="button" class="btn blue mgr10" th:onclick="modifyPasswd('mod-pw')">확인</button>
+                <button type="button" class="btn gray" th:onclick="popClose('.popup')">취소</button>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

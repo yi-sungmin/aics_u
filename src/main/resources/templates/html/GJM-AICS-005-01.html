@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />
+    <meta name="theme-color" content="#2D316C" />
+    <title>광주광역시 AI 영상 클리핑 시스템</title>
+    <link rel="stylesheet" type="text/css" href="../share/css/lightslider.css">
+    <link rel="stylesheet" type="text/css" href="../share/css/style.css">
+    <script type="text/javascript" src="../share/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../share/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../share/js/placeholder.js"></script>
+    <script type="text/javascript" src="../share/js/jquery.ellipsis.js"></script>
+    <script type="text/javascript" src="../share/js/owl.carousel.js"></script>
+    <script type="text/javascript" src="../share/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../share/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="../share/js/jstree.js"></script>
+    <script type="text/javascript" src="../share/js/swiper.min.js"></script>
+    <script type="text/javascript" src="../share/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../share/js/tui-pagination.js"></script>
+    <script type="text/javascript" src="../share/js/ui.js"></script>
+    <script>
+        $(function() {
+            // datatables 시작
+            new DataTable('#grid', {
+                // scrollY: 300,
+                paging: true,
+            } );
+            // d atatables 끝
+        });
+    </script>
+</head>
+
+<body>
+    <div id="wrap">
+        <div class="inner">
+            <div class="header">
+                <div class="hd-ft">
+                    <button class="mobile-menu-btn"><span></span></button>
+                    <a href="GJM-AICS-002-01.html" class="logo">
+                        <img src="../share/image/contents/img-main-logo.png" alt="logo">
+                    </a>
+                </div>
+                <ul class="menu">
+                    <li>
+                        <a href="#none">클립영상관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">현황통계관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">클리핑요청관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">이용자관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">이력관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">시스템관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="utill">
+                    <li class="manager">관리자<b>홍길동</b>님</li>
+                    <li class="alarm dot"><a href=""><span></span></a></li>
+                    <li class="mypage"><a href="">내정보관리</a></li>
+                    <li class="logout"><a href="">로그아웃</a></li>
+                </ul>
+            </div>
+            <div class="contents">
+                <div class="gd-inner">
+                    <div class="big-tit">클리핑 수동 요청</div>
+                    <div class="srch-container">
+                        <div class="int-area">
+                            <div>
+                                <label class="form-label">날짜</label>
+                                <select class="form-select">
+                                    <option selected>요청일</option>
+                                    <option value="1">요청일01</option>
+                                    <option value="2">요청일02</option>
+                                </select>
+                            </div>
+                            <div>
+                                <div class="in-flx">
+                                    <input type="text" id="datepickerStart" class="form-control dtpk">
+                                    <span>~</span>
+                                    <input type="text" id="datepickerEnd" class="form-control dtpk">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="form-label">요청자</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div>
+                                <label class="form-label">상태</label>
+                                <select class="form-select">
+                                    <option selected>전체</option>
+                                    <option value="1">상태01</option>
+                                    <option value="2">상태02</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="btn-box">
+                            <button type="button" class="btn blue">검색</button><button type="button" class="btn navy">조건초기화</button>
+                        </div>
+                    </div>
+                    <div class="grid-top-comp-area">
+                        <span>총 <b>320</b>건</span>
+                    </div>
+                    <table id="grid">
+                        <colgroup>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>요청일시</th>
+                                <th>식별객체</th>
+                                <th>대상 CCTV</th>
+                                <th>영상시작일시</th>
+                                <th>영상종료일시</th>
+                                <th>기준시간</th>
+                                <th>최대시간</th>
+                                <th>종료일시</th>
+                                <th>원본영상크기</th>
+                                <th>요청자</th>
+                                <th>상태</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-lft">CCTV_001</td>
+                                <td class="t-lft">CCTV_이름1</td>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-ctr">2023.11.10<br>10:24:04</td>
+                                <td class="t-rgt">5초</td>
+                                <td class="t-rgt">60초</td>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-ctr">259.2 MB</td>
+                                <td class="t-ctr">admin02</td>
+                                <td class="t-ctr"><span class="sta sta-normal">진행중</span></td>
+                            </tr>
+                            <tr>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-lft">CCTV_001</td>
+                                <td class="t-lft">CCTV_이름1</td>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-ctr">2023.11.10<br>10:24:04</td>
+                                <td class="t-rgt">5초</td>
+                                <td class="t-rgt">60초</td>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-ctr">259.2 MB</td>
+                                <td class="t-ctr">admin02</td>
+                                <td class="t-ctr"><span class="sta sta-none">완료</span></td>
+                            </tr>
+                            <tr>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-lft">CCTV_001</td>
+                                <td class="t-lft">CCTV_이름1</td>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-ctr">2023.11.10<br>10:24:04</td>
+                                <td class="t-rgt">5초</td>
+                                <td class="t-rgt">60초</td>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-ctr">259.2 MB</td>
+                                <td class="t-ctr">admin02</td>
+                                <td class="t-ctr"><span class="sta sta-unusual">오류</span></td>
+                            </tr>
+                            <tr>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-lft">CCTV_001</td>
+                                <td class="t-lft">CCTV_이름1</td>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-ctr">2023.11.10<br>10:24:04</td>
+                                <td class="t-rgt">5초</td>
+                                <td class="t-rgt">60초</td>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-ctr">259.2 MB</td>
+                                <td class="t-ctr">admin02</td>
+                                <td class="t-ctr"><span class="sta sta-unusual">취소</span></td>
+                            </tr>
+                            <tr>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-lft">CCTV_001</td>
+                                <td class="t-lft">CCTV_이름1</td>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-ctr">2023.11.10<br>10:24:04</td>
+                                <td class="t-rgt">5초</td>
+                                <td class="t-rgt">60초</td>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-ctr">259.2 MB</td>
+                                <td class="t-ctr">admin02</td>
+                                <td class="t-ctr"><span class="sta sta-caution">기타</span></td>
+                            </tr>
+                            <tr>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-lft">CCTV_001</td>
+                                <td class="t-lft">CCTV_이름1</td>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-ctr">2023.11.10<br>10:24:04</td>
+                                <td class="t-rgt">5초</td>
+                                <td class="t-rgt">60초</td>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-ctr">259.2 MB</td>
+                                <td class="t-ctr">admin02</td>
+                                <td class="t-ctr"><span class="sta sta-color01">기타1</span></td>
+                            </tr>
+                            <tr>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-lft">CCTV_001</td>
+                                <td class="t-lft">CCTV_이름1</td>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-ctr">2023.11.10<br>10:24:04</td>
+                                <td class="t-rgt">5초</td>
+                                <td class="t-rgt">60초</td>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-ctr">259.2 MB</td>
+                                <td class="t-ctr">admin02</td>
+                                <td class="t-ctr"><span class="sta sta-color02">기타2</span></td>
+                            </tr>
+                            <tr>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-lft">CCTV_001</td>
+                                <td class="t-lft">CCTV_이름1</td>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-ctr">2023.11.10<br>10:24:04</td>
+                                <td class="t-rgt">5초</td>
+                                <td class="t-rgt">60초</td>
+                                <td class="t-ctr">2023.11.10<br>10:23:59</td>
+                                <td class="t-ctr">259.2 MB</td>
+                                <td class="t-ctr">admin02</td>
+                                <td class="t-ctr"><span class="sta sta-color03">기타3</span></td>
+                            </tr>
+                        </tbody>
+                    </table> <!-- 그리드 div -->
+                </div>
+            </div>
+            <div class="footer">
+                Copyright ⓒ 2024 Gwangju Metropolitan City. All Rights Reserved.
+            </div>
+        </div>
+    </div>
+</body>
+<link rel="stylesheet" href="../share/css/tui-custom.css" />
+</html>

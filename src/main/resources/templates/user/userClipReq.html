@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{common/layout/default-layout}"
+      layout:fragment="content">
+
+<head>
+    <script th:inline="javascript">
+        $(function() {
+            renderDataTable('#grid', '/user-clip-req/all', AICS.getSearchAreaValues(), getColumns(), null);
+            renderDataTable('#popGrid', '/user-clip-req/dtl/all', {}, getPopColumns(), null);
+
+            /* 그리드 로우 클릭 이벤트 */
+            $('#grid').on('click', 'tbody tr', function () {
+                let data = $('#grid').DataTable().row($(this)).data();
+                setPopupData(data);
+                $('#popGrid').DataTable().destroy();
+                renderDataTable('#popGrid', '/user-clip-req/dtl/all', { reqId : data.reqId}, getPopColumns(), null);
+                popOpen('.dtl');
+            });
+        });
+
+        const searchData = () => {
+            $('#grid').DataTable().destroy();
+            renderDataTable('#grid', '/user-clip-req/all', AICS.getSearchAreaValues(), getColumns(), null);
+        }
+
+        /* 조건 초기화 */
+        const resetData = () => {
+            /* 검색 조건 클리어 */
+            AICS.clearSearchAreaValues();
+            /* 그리드 리로드 */
+            searchData();
+        }
+
+        const getColumns = () => {
+            return [
+                {data: "reqId",         visible: false},
+                {data: "reqDtm",        className: 't-ctr'},
+                {data: "useReqTarget",  className: 't-ctr', orderable: false},
+                {data: "usePeriod",     className: 't-ctr'},
+                {data: "purpose",       className: 't-ctr'},
+                {data: "stts", className: 't-ctr', render: function(data, type) {
+                    if (data === '승인') {
+                        return '<span class="sta sta-skyblue">'+ data +'</span>';
+                    }
+                    if (data === '신청') {
+
+                        return '<span class="sta sta-normal">'+ data +'</span>';
+                    }
+                    if (data === '거절') {
+                        return '<span class="sta sta-unusual">'+ data +'</span>';
+                    }
+                    return data;
+                }},
+                {data: "apprvDtm",        className: 't-ctr'}
+            ];
+        }
+        const getPopColumns = () => {
+            return [
+                {data: "fileNm", className: 't-ctr'},
+                {data: "objectType", className: 't-ctr'},
+                {data: "createDtm", className: 't-ctr'},
+                {
+                    data: "clipSize", className: 't-rgt', render: (data, type, row) => {
+                        return AICS.bytesToSize(data);
+                    }
+                },
+                {data: "clipPlayYn", className: 't-ctr', render: (data, type, row) => {
+                        return changeToChar(data);
+                    }
+                },
+                {data: "clipSaveYn", className: 't-ctr', render: (data, type, row) => {
+                        return changeToChar(data);
+                    }
+                },
+                {
+                    data: "maskSize", className: 't-rgt', render: (data, type, row) => {
+                        return AICS.bytesToSize(data);
+                    }
+                },
+                {data: "maskPlayYn", className: 't-ctr', render: (data, type, row) => {
+                        return changeToChar(data);
+                    }
+                },
+                {data: "maskSaveYn", className: 't-ctr', render: (data, type, row) => {
+                        return changeToChar(data);
+                    }
+                },
+                {data: "thumbCnt", className: 't-ctr'},
+                {data: "thumbViewYn", className: 't-ctr', render: (data, type, row) => {
+                        return changeToChar(data);
+                    }
+                },
+                {data: "thumbSaveYn", className: 't-ctr', render: (data, type, row) => {
+                        return changeToChar(data);
+                    }
+                }
+            ];
+        }
+
+        /**
+         * 사용자 상태에 따른 클래스명 부여
+         * @param stts 상태
+         * @returns {string} 클래스명(색상)
+         */
+        const getSttsClassName = (stts) => {
+            if (stts === '승인') {
+                return 'sta sta-skyblue';
+            }
+            if (stts === '신청') {
+                return 'sta sta-normal';
+            }
+            if (stts === '거절') {
+                return 'sta sta-purple';
+            }
+        }
+        const setPopupData = (data) => {
+            setPopupContents(data.stts);
+            resetPopupData();
+            $('#dtl-typeNm').text(data.typeNm);
+            /* 상태 */
+            let className = getSttsClassName(data.stts);
+            $('#dtl-stts').addClass(className).text(data.stts);
+            $('#dtl-reqDtm').text(data.reqDtm);
+            $('#dtl-orgNm').text(data.orgNm);
+            $('#dtl-userNm').text(data.userNm);
+            $('#dtl-userId').text(data.userId);
+            $('#dtl-telNo').text(data.telNo);
+            $('#dtl-emailAddr').text(data.emailAddr);
+            $('#dtl-startDtm').text(data.startDtm);
+            $('#dtl-endDtm').text(data.endDtm);
+            $('#dtl-purpose').val(data.purpose);
+            $('#dtl-apprvDtm').text(data.apprvDtm);
+            $('#dtl-apprvId').text(data.apprvId);
+            $('#dtl-rejectReason').text(data.rejectReason);
+            $('#dtl-rejectId').text(data.apprvId);
+            $('#dtl-rejectDtm').text(data.apprvDtm);
+            $('#dtl-reqId').val(data.reqId);
+        }
+
+        const setPopupContents = (stts) => {
+            if (stts === '승인') {
+                $('.tr-apprv').show();
+                $('.tr-reject').hide();
+            }
+            else if (stts === '거절') {
+                $('.tr-apprv').hide();
+                $('.tr-reject').show();
+            }
+            else {
+                // 승인대기(신청)
+                $('.tr-apprv, .tr-reject').hide();
+            }
+        }
+
+        /**
+         * 팝업 데이터 초기화
+         */
+        const resetPopupData = () =>{
+            let nodes = document.querySelectorAll('.dtl td span, .dtl td textarea');
+            nodes.forEach(d => {
+                d.tagName === 'span' ? d.text = '' : d.value = '';
+            });
+        }
+    </script>
+</head>
+<div class="contents">
+    <div class="gd-inner">
+        <div class="big-tit">클립 영상 검색</div>
+        <div class="srch-container">
+            <div class="int-area">
+                <div>
+                    <label class="form-label">기간</label>
+                    <div class="in-flx">
+                        <input type="text" id="startDate" class="form-control dtpk">
+                        <span>~</span>
+                        <input type="text" id="endDate" class="form-control dtpk">
+                    </div>
+                </div>
+                <div>
+                    <label class="form-label">상태</label>
+                    <select class="form-select" id="stts">
+                        <option value="">전체</option>
+                        <option th:each="option : ${clipReqStts}"
+                                th:value="${option.code}"
+                                th:text="${option.codeText}">
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="btn-box">
+                <button type="button" class="btn blue" th:onclick="searchData()">검색</button>
+                <button type="button" class="btn navy" th:onclick="resetData()">조건초기화</button>
+            </div>
+        </div>
+        <div class="grid-top-comp-area">
+            <span>총 <b id="recordsFiltered">0</b>건</span>
+        </div>
+        <table id="grid">
+            <thead>
+            <tr>
+                <th>신청아이디</th>
+                <th>신청일시</th>
+                <th>이용 신청 대상</th>
+                <th>이용 시간</th>
+                <th>신청 목적</th>
+                <th>상태</th>
+                <th>승인/거절일</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<div th:replace="~{user/popup/userClipReqApprv :: apprvPop}"></div>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="clipCart">
+    <div class="popup clipCart" style="display: none; width: 950px;">
+        <div class="tit">
+            <span>클립 영상 이용 신청 장바구니</span>
+            <button class="x-btn" onclick="popClose('.dtl')"></button>
+        </div>
+        <div class="container">
+            <div class="sub-tit">이용 신청 목록</div>
+            <div>
+                <table id="cartGrid">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>클립아이디</th>
+                        <th>파일아이디</th>
+                        <th>클립 영상 파일명</th>
+                        <th>식별 객체</th>
+                        <th>클립 생성일시</th>
+                        <th>클립 영상 크기</th>
+                        <th>비식별화 영상 크기</th>
+                        <th>학습용 썸네일</th>
+                        <th>비식별화 파일 생성일</th>
+                    </tr>
+                    </thead>
+                </table> <!-- 그리드 div -->
+            </div>
+            <div class="btn-box-bottom mgt30">
+                <button type="button" class="btn blue" id="btnCallReqPop">이용 신청</button>
+                <button type="button" class="btn gray" th:onclick="popClose('.popup')">닫기</button>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

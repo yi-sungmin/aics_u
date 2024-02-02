@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{common/fragments/head}">
+    <title>광주광역시 AI 영상 클리핑 시스템</title>
+</head>
+
+<script th:inline="javascript">
+    const globalRejectData = new GlobalStorage();
+
+    $(function() {
+        /* 팝업 달력 datepicker rendering */
+        AICS.renderRangePicker('req-startDate', 'req-endDate');
+        AICS.renderRangePicker('re-startDate', 're-endDate');
+
+        /* 이용자 등록 > 중복 체크 */
+        $('#btnCheckId').click(() => {
+            popupManager.isCheckedId();
+        });
+        /* 이용자 아이디 keyup event */
+        $('#req-userId').keyup(() => {
+            $('#btnCheckId').prop('disabled', false);
+        });
+
+        /* 모달 팝업 버튼 컨트롤 */
+        $('.popup .btn-box-bottom > button').click((e)=>{
+            const buttonId = $(e.currentTarget).attr('id');
+            switch (buttonId) {
+                case "req-btnCreate" :
+                    /* 중복체크버튼 display 여부로 판단 */
+                    if (document.getElementById('btnCheckId').offsetParent == null) {
+                        /* 재 등록 요청 */
+                        popupManager.createUserReq(true);
+                    } else {
+                        /* 신규 등록 요청*/
+                        popupManager.createUserReq(false);
+                    }
+                    break;
+                case "req-btnCancel" :
+                    /* 등록신청 취소 버튼 */
+                    document.getElementById("req-form").reset();
+                    popClose('.popup');
+                    break;
+                case "conf-btnConfLogin" :
+                    /* 등록신청 확인하기(1) : 로그인 정보 */
+                    popupManager.getUserReqStts('l');
+                    break;
+                case "conf-btnConfUser" :
+                    /* 등록신청 확인하기(2) : 사용자 정보 */
+                    popupManager.getUserReqStts('u');
+                    break;
+                case "reg-btnConf" :
+                    /* 등록신청 전 사용자 등록 여부 확인 */
+                    popupManager.isRegistered();
+                    break;
+                case "reg-btnCancel" :
+                    /* 등록신청 전 확인 취소 버튼 */
+                    document.getElementById("reg-conf-form").reset();
+                    popClose('.popup');
+                    break;
+                case "re-btnReq" :
+                    popupManager.createUserReReq();
+                    break;
+            }
+        });
+    });
+
+    const popupResetAndOpen = (el) => {
+        document.getElementById(el+'-form').reset();
+        popOpen('.' + el);
+    }
+
+    /* 팝업 내부 Function 모음 */
+    const popupManager = {
+        isCheckedId : () => {
+            let userId = $('#req-userId').val();
+            if (!userId) {
+                nobiz.alert('아이디를 입력 해 주세요.', 'warning');
+                return false;
+            }
+
+            let response = AICS.get("/user/isCheckedId", {userId}, false);
+            response.then(result => {
+                nobiz.alert(result.message, result.data ? 'success' : 'error');
+                if (result.data) {
+                    $('#btnCheckId').prop('disabled', true);
+                }
+            });
+        },
+        getPopupData: (el) => {
+            let telNo = $('#' + el +'-telNo1').val() + '-' + $('#' + el +'-telNo2').val() + '-' + $('#' + el +'-telNo3').val();
+            let emailAddr = $('#' + el +'-emailAddr1').val() + '@' + $('#' + el +'-emailAddr2').val();
+            let startDtm = $('#' + el +'-startDate').val().replaceAll('-', '') + $('#' + el +'-startHour').val() + $('#' + el +'-startMin').val();
+            let endDtm = $('#' + el +'-endDate').val().replaceAll('-', '') + $('#' + el +'-endHour').val() + $('#' + el +'-endMin').val();
+
+            let params = {
+                telNo, emailAddr, startDtm, endDtm
+            };
+
+            let inputEL = `.` + el + ' input';
+            let selectEL = `.` + el + ' select';
+            let radioEL = `.` + el + ' textarea';
+            let nodeEL = [inputEL, selectEL, radioEL].join(", ");
+            let nodes = document.querySelectorAll(nodeEL);
+            nodes.forEach(node => {
+                if (node.name !== '') {
+                    params[node.name] = node.value;
+                }
+            });
+
+            return params;
+        },
+        createUserReq: (isRe) => {
+            let url = "/user-req";
+            let popupData = popupManager.getPopupData('req');
+            if (popupData.passwd !== popupData.confPasswd) {
+                nobiz.alert('패스워드와 패스워드 확인이 일치하지 않습니다. 다시 입력 해 주세요.', 'warning');
+                return false;
+            }
+
+            if (isRe) {
+               url += "/re";
+            }
+            let response = AICS.post(url, popupData, null);
+            response.then(result => {
+               nobiz.alert(result.message);
+               popClose('.popup');
+            });
+        },
+        createUserReReq: () => {
+            let rejectData = globalRejectData.get('data');
+            let passwd = $('#re-passwd').val();
+            let confPasswd = $('#re-confPasswd').val();
+            if (passwd !== confPasswd) {
+                nobiz.alert('패스워드와 패스워드 확인이 일치하지 않습니다. 다시 입력 해 주세요.', 'warning');
+                return false;
+            }
+            rejectData.passwd = passwd;
+
+            if ($('#re-startDate').val() === '' || $('#re-endDate').val() === '') {
+                nobiz.alert('이용 시작, 종료 시각을 입력 해 주세요.', 'warning');
+                return false;
+            }
+
+            let startDtm = $('#re-startDate').val().replaceAll('-', '') + $('#re-startHour').val() + $('#re-startMin').val();
+            let endDtm = $('#re-endDate').val().replaceAll('-', '') + $('#re-endHour').val() + $('#re-endMin').val();
+
+            rejectData.startDtm = startDtm;
+            rejectData.endDtm = endDtm;
+
+            let response = AICS.post("/user-req/re", rejectData, null);
+            response.then(result => {
+               nobiz.alert(result.message);
+               popClose('.popup');
+            });
+        },
+        setReqPopupData: (data) => {
+            if (typeof(data.userId) !== 'undefined') {
+                $('#req-userId').val(data.userId).attr('readonly', true);
+                $('#btnCheckId').hide();
+            } else {
+                $('#req-userId').val('').attr('readonly', false);
+                $('#btnCheckId').show();
+            }
+            $('#req-userNm').val(data.userNm);
+            let arrTelNo = data.telNo.indexOf('-') !== -1 ? data.telNo.split('-') : [];
+            if (arrTelNo.length === 3) {
+                $('#req-telNo1').val(arrTelNo[0]);
+                $('#req-telNo2').val(arrTelNo[1]);
+                $('#req-telNo3').val(arrTelNo[2]);
+            }
+            let arrEmailAddr = data.emailAddr.indexOf('@') !== -1 ? data.emailAddr.split('@') : [];
+            if (arrEmailAddr.length === 2) {
+                $('#req-emailAddr1').val(arrEmailAddr[0]);
+                $('#req-emailAddr2').val(arrEmailAddr[1]);
+            }
+        },
+        setRejectPopupData: (data) => {
+            globalRejectData.set('data', data);
+            for (let key in data) {
+                if (data.hasOwnProperty(key)) {
+                    let value = data[key];
+                    let selector = document.getElementById('re-'+key);
+                    if (selector != null) {
+                        selector.tagName === 'SPAN' ? selector.innerText = value : selector.value = value;
+                    }
+                }
+            }
+
+        },
+        setPopTitle : (el, title) => {
+            $('#'+el).text(title);
+        },
+        isRegistered: () => {
+            let params = {
+                userNm : $('#reg-userNm').val(),
+                emailAddr: $('#reg-emailAddr').val(),
+                telNo : formatPhoneNumber($('#reg-telNo').val())
+            }
+            let response = AICS.get("/user/findUserIdAndStts", params, false);
+            response.then(result => {
+                document.getElementById("reg-conf-form").reset();
+
+                let data = result.data;
+                if (data == null) {
+                    /* 신규 생성 팝업 */
+                    popupManager.setPopTitle('req-title', '이용자 등록 신청');
+                    popupManager.setReqPopupData(params);
+                    popOpen('.req');
+                }
+                else {
+                    switch (data.stts) {
+                        case '정상' :
+                            popOpen('.stts-normal');
+                            break;
+                        case '대기' :
+                            popOpen('.stts-standby');
+                            break;
+                        case '정지' :
+                            popOpen('.stts-stop');
+                            break;
+                        case '만료' :
+                            popOpen('.stts-expired');
+                            popupManager.setPopTitle('req-title', '이용자 재등록 신청');
+                            popupManager.setReqPopupData(data);
+                            break;
+
+                    }
+                }
+            });
+        },
+        getUserReqStts: (type) => {
+            let url = '';
+
+            let params = {};
+            let nodes = document.querySelectorAll('.conf input');
+            nodes.forEach(node => {
+                if (node.name !== '') {
+                    params[node.name] = node.value;
+                }
+            });
+
+            if (type === 'l') {
+                url = '/user-req/findApprvByLoginInfo';
+            } else {
+                url = '/user-req/findApprvByUserInfo';
+            }
+
+            let response = AICS.get(url, params, false);
+            response.then(result => {
+                let data = result.data;
+                switch (data.stts) {
+                    case '신청' :
+                        popOpen('.conf-req');
+                        break;
+                    case '승인' :
+                        popOpen('.conf-apprv');
+                        break;
+                    case '거절' :
+                        popupManager.setRejectPopupData(data);
+                        popOpen('.conf-reject');
+                        break;
+                    case '없음' :
+                        popOpen('.conf-isnot');
+                        break;
+
+                }
+            });
+        }
+    }
+</script>
+
+<body>
+<div id="wrap">
+    <div class="login-wrap">
+        <div class="login-container">
+            <div class="login-logo">
+                <a href="/login-page">
+                    <p><img th:src="@{/image/contents/img-logo.png}" alt="logo"></p>
+                    <p>AI 영상 클리핑 시스템</p>
+                </a>
+            </div>
+            <div class="user-intro-content">
+                <a th:href="@{/login-page}">
+                    <img th:src="@{/image/common/ico-big-lock.png}" alt="로그인">
+                    <p>로그인</p>
+                </a>
+                <a href="javascript:popupResetAndOpen('reg-conf')">
+                    <img th:src="@{/image/common/ico-pencil.png}" alt="등록신청">
+                    <p>등록신청</p>
+                </a>
+                <a href="javascript:popupResetAndOpen('conf')">
+                    <img th:src="@{/image/common/ico-search.png}" alt="등록신청 확인하기">
+                    <p>등록신청 확인하기</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<div class="modal-bg" style="display: none;"></div>
+<div th:replace="~{login/popup/userRegConf :: userReqConf}"></div>
+<div th:replace="~{login/popup/userReq :: userReq}"></div>
+<div th:replace="~{login/popup/userReqConf :: userReqConf}"></div>
+</html>

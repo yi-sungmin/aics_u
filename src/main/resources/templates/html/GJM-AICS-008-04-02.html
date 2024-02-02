@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />
+    <meta name="theme-color" content="#2D316C" />
+    <title>광주광역시 AI 영상 클리핑 시스템</title>
+    <link rel="stylesheet" type="text/css" href="../share/css/lightslider.css">
+    <link rel="stylesheet" type="text/css" href="../share/css/style.css">
+    <script type="text/javascript" src="../share/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../share/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../share/js/placeholder.js"></script>
+    <script type="text/javascript" src="../share/js/jquery.ellipsis.js"></script>
+    <script type="text/javascript" src="../share/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../share/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="../share/js/jstree.js"></script>
+    <script type="text/javascript" src="../share/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../share/js/dataTables.rowReorder.js"></script>
+    <script type="text/javascript" src="../share/js/tui-pagination.js"></script>
+    <script type="text/javascript" src="../share/js/ui.js"></script>
+    <script>
+        $(function() {
+            // datatables 시작
+            var table = $('#grid').DataTable( {
+                searching: false,
+                info: false,
+                paging: false,
+                rowReorder: {
+                    selector: '.handle'
+                },
+                columnDefs: [
+                    { targets: 0, visible: false }
+                ]
+            } );
+            table.on('row-reordered', function (e, { insertPlacement, insertPoint }) {
+                checkBtnSort($('#grid'));
+            });
+            // datatables 끝
+
+            // 순서 버튼 클릭 시 시작
+            $(document).on('click', '.btn-sort-upper', function(e) {
+                console.log(1);
+                var $tr = $(this).closest('tr');
+                var $table = $(this).closest('table');
+                if ($tr.prevAll('tr').length != 0) {
+                    $tr.clone().insertBefore($tr.prev('tr'));
+                    $tr.remove();
+                    checkBtnSort($table);
+                }
+                e.preventDefault()
+            });
+            $(document).on('click', '.btn-sort-below', function(e) {
+                console.log(1);
+                var $tr = $(this).closest('tr');
+                var $table = $(this).closest('table');
+                if ($tr.nextAll('tr').length != 0) {
+                    $tr.clone().insertAfter($tr.next('tr'));
+                    $tr.remove();
+                    checkBtnSort($table);
+                }
+                e.preventDefault()
+            });
+            // 순서 버튼 클릭 시 끝
+        });
+
+        // 순서 버튼 클릭 시 시작
+        function checkBtnSort(table) {
+            table.find('button[class*=btn-sort].disabled').removeClass('disabled');
+            table.find('tbody tr').first().find('.btn-sort-upper').addClass('disabled');
+            table.find('tbody tr').last().find('.btn-sort-below').addClass('disabled');
+        }
+        // 순서 버튼 클릭 시 끝
+    </script>
+</head>
+
+<body>
+    <div id="wrap">
+        <div class="inner">
+            <div class="header">
+                <div class="hd-ft">
+                    <button class="mobile-menu-btn"><span></span></button>
+                    <a href="GJM-AICS-002-01.html" class="logo">
+                        <img src="../share/image/contents/img-main-logo.png" alt="logo">
+                    </a>
+                </div>
+                <ul class="menu">
+                    <li>
+                        <a href="#none">클립영상관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">현황통계관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">클리핑요청관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">이용자관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">이력관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">시스템관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="utill">
+                    <li class="manager">관리자<b>홍길동</b>님</li>
+                    <li class="alarm dot"><a href=""><span></span></a></li>
+                    <li class="mypage"><a href="">내정보관리</a></li>
+                    <li class="logout"><a href="">로그아웃</a></li>
+                </ul>
+            </div>
+            <div class="contents">
+                <div class="gd-inner">
+                    <div class="big-tit">이용자 유형 관리</div>
+                    <div class="srch-container">
+                        <div class="int-area">
+                            <div>
+                                <label class="form-label">이용자 유형</label>
+                                <input class="form-control" type="text" placeholder="연구소" readonly style="width: 110px;">
+                            </div>
+                            <div>
+                                <ul class="in-flx chk-box">
+                                    <li>
+                                        <input class="form-check-input" type="checkbox" id="ck01">
+                                        <label class="form-check-label" for="ck01">사용</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="btn-box">
+                            <button type="button" class="btn blue">등록</button><button type="button" class="btn gray">취소</button>
+                        </div>
+                    </div>
+                    <div class="grid-top-comp-area">
+                        <div class="outside-int-box">
+                            <input class="form-check-input" type="checkbox" id="ck02">
+                            <label class="form-check-label" for="ck02">사용 중인 유형만 표시</label>
+                        </div>
+                    </div>
+                    <table id="grid" style="width: calc(100% - 1px);"> <!-- style="width: calc(100% - 1px);" 필수! -->
+                        <thead>
+                            <tr>
+                                <th>index</th> <!-- drag and drop에 필요한 순서 체크 셀입니다. row의 가장 첫번째에 와야 합니다. -->
+                                <th>이용자 유형</th>
+                                <th>등록일</th>
+                                <th>등록자</th>
+                                <th>사용</th>
+                                <th>순서</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>100</th> <!-- drag and drop에 필요한 순서 체크 셀입니다. row의 가장 첫번째에 와야 합니다. -->
+                                <th class="t-lft">
+                                    <button class="handle">드래그핸들</button>
+                                    기업
+                                </th>
+                                <td class="t-ctr">1</td>
+                                <td class="t-ctr">-</td>
+                                <td class="t-ctr"><span class="sta sta-normal">1</span></td>
+                                <td class="t-ctr"><button class="btn-sort-upper disabled">위로</button><button class="btn-sort-below">아래로</button></td>
+                            </tr>
+                            <tr>
+                                <th>200</th> <!-- drag and drop에 필요한 순서 체크 셀입니다. row의 가장 첫번째에 와야 합니다. -->
+                                <th class="t-lft">
+                                    <button class="handle">드래그핸들</button>
+                                    연구소
+                                </th>
+                                <td class="t-ctr">2</td>
+                                <td class="t-ctr">-</td>
+                                <td class="t-ctr"><span class="sta sta-normal">2</span></td>
+                                <td class="t-ctr"><button class="btn-sort-upper">위로</button><button class="btn-sort-below">아래로</button></td>
+                            </tr>
+                            <tr>
+                                <th>300</th> <!-- drag and drop에 필요한 순서 체크 셀입니다. row의 가장 첫번째에 와야 합니다. -->
+                                <th class="t-lft">
+                                    <button class="handle">드래그핸들</button>
+                                    학교
+                                </th>
+                                <td class="t-ctr">3</td>
+                                <td class="t-ctr">-</td>
+                                <td class="t-ctr"><span class="sta sta-normal">3</span></td>
+                                <td class="t-ctr"><button class="btn-sort-upper">위로</button><button class="btn-sort-below">아래로</button></td>
+                            </tr>
+                            <tr>
+                                <th>400</th> <!-- drag and drop에 필요한 순서 체크 셀입니다. row의 가장 첫번째에 와야 합니다. -->
+                                <th class="t-lft">
+                                    <button class="handle">드래그핸들</button>
+                                    기관
+                                </th>
+                                <td class="t-ctr">4</td>
+                                <td class="t-ctr">-</td>
+                                <td class="t-ctr"><span class="sta sta-normal">4</span></td>
+                                <td class="t-ctr"><button class="btn-sort-upper">위로</button><button class="btn-sort-below">아래로</button></td>
+                            </tr>
+                            <tr>
+                                <th>500</th> <!-- drag and drop에 필요한 순서 체크 셀입니다. row의 가장 첫번째에 와야 합니다. -->
+                                <th class="t-lft">
+                                    <button class="handle">드래그핸들</button>
+                                    기타
+                                </th>
+                                <td class="t-ctr">5</td>
+                                <td class="t-ctr">-</td>
+                                <td class="t-ctr"><span class="sta sta-normal">5</span></td>
+                                <td class="t-ctr"><button class="btn-sort-upper">위로</button><button class="btn-sort-below">아래로</button></td>
+                            </tr>
+                            <tr>
+                                <th>600</th> <!-- drag and drop에 필요한 순서 체크 셀입니다. row의 가장 첫번째에 와야 합니다. -->
+                                <th class="t-lft">
+                                    <button class="handle">드래그핸들</button>
+                                    테스트
+                                </th>
+                                <td class="t-ctr">6</td>
+                                <td class="t-ctr">-</td>
+                                <td class="t-ctr"><span class="sta sta-unusual">6</span></td>
+                                <td class="t-ctr"><button class="btn-sort-upper">위로</button><button class="btn-sort-below disabled">아래로</button></td>
+                            </tr>
+                        </tbody>
+                    </table> <!-- 그리드 div -->
+                </div>
+            </div>
+            <div class="footer">
+                Copyright ⓒ 2024 Gwangju Metropolitan City. All Rights Reserved.
+            </div>
+        </div>
+    </div>
+</body>
+<link rel="stylesheet" href="../share/css/tui-custom.css" />
+</html>

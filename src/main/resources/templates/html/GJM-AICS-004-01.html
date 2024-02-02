@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />
+    <meta name="theme-color" content="#2D316C" />
+    <title>광주광역시 AI 영상 클리핑 시스템</title>
+    <link rel="stylesheet" type="text/css" href="../share/css/lightslider.css">
+    <link rel="stylesheet" type="text/css" href="../share/css/style.css">
+    <script type="text/javascript" src="../share/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../share/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../share/js/placeholder.js"></script>
+    <script type="text/javascript" src="../share/js/jquery.ellipsis.js"></script>
+    <script type="text/javascript" src="../share/js/owl.carousel.js"></script>
+    <script type="text/javascript" src="../share/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../share/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="../share/js/bootstrap-datepicker.ko.min.js"></script>
+    <script type="text/javascript" src="../share/js/moment.min.js"></script>
+    <script type="text/javascript" src="../share/js/moment-locale-ko.js"></script>
+    <script type="text/javascript" src="../share/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="../share/js/jstree.js"></script>
+    <script type="text/javascript" src="../share/js/swiper.min.js"></script>
+    <script type="text/javascript" src="../share/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../share/js/tui-pagination.js"></script>
+    <script type="text/javascript" src="../share/js/toastui-chart.min.js"></script>
+    <script type="text/javascript" src="../share/js/ui.js"></script>
+    <script>
+        $(function() {
+            // datatables 시작
+            new DataTable('#grid', {
+                // scrollY: 300,
+                paging: false,
+                searching: false,
+                info: false
+            } );
+            // datatables 끝
+
+            // 차트 공통
+            const Chart = toastui.Chart;
+            const theme1 = {
+                series: {
+                    barWidth: 10, 
+                    colors: ['#1D88E7', '#D97962'], 
+                    areaOpacity: 1, 
+                },
+            };
+            const theme2 = {
+                series: {
+                    barWidth: 20, 
+                    colors: ['#0C476C', '#3C8687', '#78BE9A', '#A7DCA8', '#CFF09F', '#00A0AE', '#13C8B5', '#F7C407', '#E0E4CD', '#FB6A01'], 
+                    areaOpacity: 1, 
+                },
+            };
+            const theme3 = {
+                series: {
+                    barWidth: 20, 
+                    colors: ['#8BC7D2'], 
+                    areaOpacity: 1, 
+                },
+            };
+
+            // 주간 클립 영상 통계
+            const el1 = document.getElementById('chart1');
+            const data1 = {
+                categories: [
+                '10-01',
+                '10-02',
+                '10-03',
+                '10-04',
+                '10-05',
+                '10-06',
+                '10-07',
+                ],
+                series: [
+                {
+                    name: '클리핑',
+                    data: [5000, 3000, 5000, 7000, 6000, 4000, 1000],
+                },
+                {
+                    name: '비식별화',
+                    data: [8000, 4000, 7000, 2000, 6000, 3000, 5000],
+                },
+                ],
+            };
+            const options1 = {
+                chart: {
+                    width: 1000, 
+                    height: 408,
+                },
+                theme: theme1,
+            };
+            const chart1 = Chart.columnChart({ el: el1, data: data1, options: options1 });
+
+            //weekpicker
+            $(".form-control.wkpk").datetimepicker({
+                format: 'YYYY-MM-DD',
+                locale: 'ko',
+                // keepOpen: true,
+                // keepInvalid: true
+            });
+
+            //Get the value of Start and End of Week
+            $('.form-control.wkpk').on('dp.change', function (e) {
+                value = $(this).val();
+                firstDate = moment(value, "YYYY-MM-DD").day(0).format("YYYY-MM-DD");
+                lastDate =  moment(value, "YYYY-MM-DD").day(6).format("YYYY-MM-DD");
+                $(this).val(firstDate + " ~ " + lastDate);
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="wrap">
+        <div class="inner">
+            <div class="header">
+                <div class="hd-ft">
+                    <button class="mobile-menu-btn"><span></span></button>
+                    <a href="GJM-AICS-002-01.html" class="logo">
+                        <img src="../share/image/contents/img-main-logo.png" alt="logo">
+                    </a>
+                </div>
+                <ul class="menu">
+                    <li>
+                        <a href="#none">클립영상관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">현황통계관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">클리핑요청관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">이용자관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">이력관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#none">시스템관리</a>
+                        <ul>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                            <li><a href="">Depth 02</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="utill">
+                    <li class="timeout"><span>남은 시간</span><strong>10:30</strong></li>
+                    <li class="manager">관리자<b>홍길동</b>님</li>
+                    <li class="alarm dot"><a href=""><span></span></a>
+                        <ul>
+                            <li><a href=""><span>등록 신청</span><strong>3</strong></a></li>
+                            <li><a href=""><span>이용 신청</span><strong>44</strong></a></li>
+                        </ul>
+                    </li>
+                    <li class="mypage"><a href="">내정보관리</a></li>
+                    <li class="logout"><a href="">로그아웃</a></li>
+                </ul>
+            </div>
+            <div class="contents">
+                <div class="gd-inner">
+                    <div class="big-tit">클립 영상 통계</div>
+                    <div class="srch-container">
+                        <div class="int-area">
+                            <div>
+                                <label class="form-label">날짜</label>
+                                <select class="form-select">
+                                    <option selected>일간</option>
+                                    <option value="1">월간</option>
+                                    <option value="2">주간</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">날짜 선택</label>
+                                <div class="in-flx">
+                                    <input type="text" id="datepicker01" class="form-control dtpk">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="form-label">월 선택</label>
+                                <div class="in-flx">
+                                    <input type="text" class="form-control mnpk">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="form-label">주 선택</label>
+                                <div class="in-flx">
+                                    <input type='text' class='form-control wkpk' />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-box">
+                            <button type="button" class="btn blue">검색</button>
+                        </div>
+                    </div>
+                    <div class="grid-top-comp-area component-01">
+                        <button type="button" class="btn green excel" style="float: right;">엑셀저장</button>
+                    </div>
+                    <div class="grid-continer mgb10">
+                        <div id="chart1"></div>
+                    </div>
+                    <table id="grid">
+                        <colgroup>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>10-29</th>
+                                <th>10-30</th>
+                                <th>10-31</th>
+                                <th>11-01</th>
+                                <th>11-02</th>
+                                <th>11-03</th>
+                                <th>11-04</th>
+                                <th>계</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th class="t-ctr">클리핑</th>
+                                <td class="t-rgt">100</td>
+                                <td class="t-rgt">95</td>
+                                <td class="t-rgt">87</td>
+                                <td class="t-rgt">120</td>
+                                <td class="t-rgt">132</td>
+                                <td class="t-rgt">128</td>
+                                <td class="t-rgt">80</td>
+                                <td class="t-rgt">742</td>
+                            </tr>
+                            <tr>
+                                <th class="t-ctr">비식별화</th>
+                                <td class="t-rgt">100</td>
+                                <td class="t-rgt">95</td>
+                                <td class="t-rgt">87</td>
+                                <td class="t-rgt">120</td>
+                                <td class="t-rgt">132</td>
+                                <td class="t-rgt">128</td>
+                                <td class="t-rgt">80</td>
+                                <td class="t-rgt">742</td>
+                            </tr>
+                        </tbody>
+                    </table> <!-- 그리드 div -->
+                </div>
+            </div>
+            <div class="footer">
+                Copyright ⓒ 2024 Gwangju Metropolitan City. All Rights Reserved.
+            </div>
+        </div>
+    </div>
+</body>
+<link rel="stylesheet" href="../share/css/tui-custom.css" />
+</html>

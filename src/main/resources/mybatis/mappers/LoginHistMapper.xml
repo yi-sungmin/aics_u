@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nobiz.aics_u.repository.mapper.LoginHistMapper">
+    <insert id="insertLoginHist" parameterType="loginHist">
+        insert into tb_login_hist (login_id, user_type, ip_addr, login_dtm)
+        values (#{loginId}, #{userType}, #{ipAddr}, now())
+    </insert>
+
+    <update id="updateLoginDtm" parameterType="string">
+        update tb_user set login_dtm = now()
+        where user_id = #{loginUserId}
+    </update>
+</mapper>

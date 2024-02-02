@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nobiz.aics_u.repository.mapper.UserReqMapper">
+    <insert id="insertUserReq" parameterType="userReqCreate">
+        insert into tb_user_req
+        (
+         user_id, passwd, user_nm, type_id, tel_no,
+         org_nm, email_addr, start_dtm, end_dtm, stts,
+         purpose, req_dtm
+         )
+        values
+        (
+            #{userId}, #{passwd}, #{userNm}, #{typeId}, #{telNo},
+            #{orgNm}, #{emailAddr}, #{startDtm}, #{endDtm}, #{stts},
+            #{purpose}, now()
+        )
+    </insert>
+
+    <update id="updateUserStts" parameterType="userSttsUpdate">
+        update tb_user set stts = #{stts}
+        where user_id = #{userId}
+    </update>
+
+    <select id="selectApprvByLoginInfo" resultType="userReq">
+        select cd.code_text as stts
+             ,req.req_id
+             ,req.user_id
+             ,req.passwd
+             ,req.user_nm
+             ,req.type_id
+             ,req.org_nm
+             ,req.tel_no
+             ,req.email_addr
+             ,req.start_dtm
+             ,req.end_dtm
+             ,req.purpose
+             ,to_char(req.req_dtm, 'YYYY-mm-dd HH24:MI:SS') as req_dtm
+             ,req.reject_reason
+             ,to_char(req.apprv_dtm, 'YYYY-mm-dd HH24:MI:SS') as apprv_dtm
+        from tb_user_req as req
+        inner join tb_code as cd on cd.code = req.stts
+        where req.user_id = #{userId}
+        order by req.req_id desc limit 1;
+    </select>
+
+    <select id="selectApprvByUserInfo" resultType="userReq">
+        select cd.code_text as stts
+             ,req.req_id
+             ,req.user_id
+             ,req.user_nm
+             ,req.type_id
+             ,req.org_nm
+             ,req.tel_no
+             ,req.email_addr
+             ,req.start_dtm
+             ,req.end_dtm
+             ,req.purpose
+             ,to_char(req.req_dtm, 'YYYY-mm-dd HH24:MI:SS') as req_dtm
+             ,req.reject_reason
+             ,to_char(req.apprv_dtm, 'YYYY-mm-dd HH24:MI:SS') as apprv_dtm
+        from tb_user_req as req
+        inner join tb_code as cd on cd.code = req.stts
+        where req.user_nm = #{userNm}
+          and req.email_addr = #{emailAddr}
+          and req.tel_no = #{telNo}
+    </select>
+
+</mapper>

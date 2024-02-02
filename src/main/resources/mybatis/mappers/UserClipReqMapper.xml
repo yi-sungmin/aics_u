@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nobiz.aics_u.repository.mapper.UserClipReqMapper">
+
+    <sql id="allUserClipReqSql">
+        select  mt.req_id
+                ,to_char(mt.req_dtm, 'YYYY-MM-DD HH24:MI:SS') as req_dtm
+                ,mt.user_id
+                ,mem.user_nm
+                ,mem.org_nm
+                ,mem.type_id
+                ,ut.type_nm
+                ,coalesce(to_char(to_timestamp(mt.start_dtm, 'YYYYmmddHH24MI'), 'YYYY-mm-dd HH24:MI'), '-') as start_dtm
+                ,coalesce(to_char(to_timestamp(mt.end_dtm, 'YYYYmmddHH24MI'), 'YYYY-mm-dd HH24:MI'), '-') as end_dtm
+                ,concat(
+                    coalesce(to_char(to_timestamp(mt.start_dtm, 'YYYYmmddHH24MI'), 'YYYY-mm-dd HH24:MI'), '-'),
+                    ' ~ ',
+                    coalesce(to_char(to_timestamp(mt.end_dtm, 'YYYYmmddHH24MI'), 'YYYY-mm-dd HH24:MI'), '-')
+                ) as use_period
+                ,mt.purpose
+                ,mem.tel_no
+                ,mem.email_addr
+                ,code.code_text as stts
+                ,to_char(mt.apprv_dtm, 'YYYY-MM-DD HH24:MI:SS') as apprv_dtm
+                ,mt.apprv_id
+                ,mt.reject_reason
+                ,case
+                    when cnt.cnt = 0 then '-'
+                    else '총 ' || cnt.cnt || '건'
+                end as useReqTarget
+        from  tb_user_clip_req as mt
+        inner join tb_user as mem on mem.user_id = mt.user_id
+        inner join tb_code as code on mt.stts = code.code
+        inner join tb_user_type as ut on ut.type_id = mem.type_id
+        left join (
+            select req_id, count(clip_id) as cnt
+            from tb_user_clip_req_dtl
+            group by req_id
+        ) as cnt on cnt.req_id = mt.req_id
+        <where>
+            mem.user_id = #{loginUserId}
+            <if test="(startDate != null and !startDate.equals('')) and (endDate != null and !endDate.equals(''))">
+                and mt.req_dtm between #{startDate}::date and #{endDate}::date + 1
+            </if>
+            <if test="stts != null and !stts.equals('')">
+                and mt.stts = #{stts}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectAllUserClipReq" resultType="userClipReq">
+        <include refid="common.pager.PagingStart"/>
+        <include refid="allUserClipReqSql"/>
+        <include refid="common.pager.PagingEnd"/>
+    </select>
+
+    <select id="selectAllUserClipReqCnt" resultType="int">
+        select count(subQuery.req_id)
+        from (<include refid="allUserClipReqSql"/>) as subQuery
+    </select>
+
+    <sql id="userClipReqDtlSql">
+        select f.file_nm
+             ,mt.req_id
+             ,f.clip_id
+             ,f.file_id
+             ,to_char(f.create_dtm, 'YYYY-mm-dd HH24:MI:SS') as create_dtm
+             ,t.object_type
+             ,f.file_size as clip_size
+             ,dtl.clip_play_yn
+             ,dtl.clip_save_yn
+             ,dtl.mask_play_yn
+             ,dtl.mask_save_yn
+             ,dtl.thumb_view_yn
+             ,dtl.thumb_save_yn
+             ,case
+                  when m.file_size is null then 0
+                  else m.file_size
+            end as mask_size
+             ,case
+                  when t.thumb_cnt is null then 0
+                  else t.thumb_cnt
+            end as thumb_cnt
+        from tb_user_clip_req as mt
+                 inner join tb_user_clip_req_dtl as dtl on dtl.req_id = mt.req_id
+                 inner join tb_clip_file as f on f.file_type = '11001' and dtl.clip_id = f.clip_id
+                 left join (
+            select f.clip_id, f.file_size, f.create_dtm
+            from tb_clip_file as f
+            where f.file_type = '11002'
+        ) as m on m.clip_id = dtl.clip_id
+                 left join (
+            select f.clip_id, count(f.file_id) as thumb_cnt, STRING_AGG(cd.code_text, ', ') AS object_type
+            from tb_clip_file as f,
+                 tb_code as cd
+            where f.object_id = cd.code
+              and f.file_type = '11003'
+            group by f.clip_id
+        ) as t on t.clip_id = dtl.clip_id
+        where mt.req_id = #{reqId}
+    </sql>
+
+    <select id="selectAllUserClipReqDtl" resultType="userClipReqDtl">
+        <include refid="common.pager.PagingStart"/>
+        <include refid="userClipReqDtlSql"/>
+        <include refid="common.pager.PagingEnd"/>
+    </select>
+
+    <select id="selectAllUserClipReqDtlCnt" resultType="int">
+        select count(subQuery.req_id)
+        from (<include refid="userClipReqDtlSql"/>) as subQuery
+    </select>
+
+    <insert id="insertClipReq" parameterType="userClipReqCreate" useGeneratedKeys="true" keyProperty="reqId">
+        INSERT INTO tb_user_clip_req
+            (user_id, start_dtm, end_dtm, purpose, stts, reject_reason, apprv_id, req_dtm, apprv_dtm)
+        VALUES
+            (#{userId}, #{startDtm}, #{endDtm}, #{purpose}, #{stts}, '', '', now(), null)
+    </insert>
+
+    <insert id="insertClipReqDtl" parameterType="userClipReqCreate">
+        <foreach collection="clipReqDtl" item="item" separator=";">
+            insert into tb_user_clip_req_dtl
+                (req_id, clip_id, clip_play_yn, clip_save_yn, mask_play_yn, mask_save_yn, thumb_view_yn, thumb_save_yn)
+            values
+                (#{reqId}, #{item.clipId}, #{item.clipPlayYn}, #{item.clipSaveYn}, #{item.maskPlayYn}, #{item.maskSaveYn}, #{item.thumbViewYn}, #{item.thumbSaveYn})
+        </foreach>
+    </insert>
+</mapper>

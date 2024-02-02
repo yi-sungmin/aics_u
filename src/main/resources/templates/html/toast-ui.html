@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../share/js/jquery-3.6.0.min.js"></script>
+    <script src="../share/js/tui-grid.js"></script>
+    <link rel="stylesheet" href="../share/css/tui-grid.css" />
+    <title>TOAST UI test</title>
+    <script>
+        $(function() {
+            // 토스트 그리드 시작
+            const Grid = tui.Grid;
+            const instance = new Grid({
+                el: document.getElementById('grid'), // Container element
+                columns: [
+                {
+                    header: 'Name',
+                    name: 'name',
+                    sortable: true
+                },
+                {
+                    header: 'Artist',
+                    name: 'artist',
+                    sortable: true
+                },
+                {
+                    header: 'Release',
+                    name: 'release',
+                    sortable: true
+                },
+                {
+                    header: 'Genre',
+                    name: 'genre',
+                    sortingType: 'asc',
+                    sortable: true
+                }
+                ],
+                data: [
+                {
+                    name: 'Beautiful Lies',
+                    artist: 'Birdy',
+                    release: '2016.03.26',
+                    genre: 'Pop'
+                },
+                {
+                    name: 'Beautiful Lies',
+                    artist: 'Birdy',
+                    release: '2016.03.26',
+                    genre: 'Pop'
+                },
+                {
+                    name: 'Beautiful Lies',
+                    artist: 'Birdy',
+                    release: '2016.03.26',
+                    genre: 'Pop'
+                },
+                {
+                    name: 'Beautiful Lies',
+                    artist: 'Birdy',
+                    release: '2016.03.26',
+                    genre: 'Pop'
+                },
+                {
+                    name: 'Beautiful Lies',
+                    artist: 'Birdy',
+                    release: '2016.03.26',
+                    genre: 'Pop'
+                }
+                ]
+            });
+            // instance.resetData(newData); // Call API of instance's public method
+
+            Grid.applyTheme('default', {
+                cell: {
+                    normal: {
+                        showVerticalBorder: true,
+                        showHorizontalBorder: true,
+                        border: '#BCBDBF',
+                        background: '#fff',
+                        text: '#595959'
+                    },
+                    header: {
+                        // background: '#fff',
+                        border: '#BCBDBF'
+                    },
+                    selectedHeader: {
+                        // background: '#e0e0e0'
+                    }
+                },
+                scrollbar: {
+                    border: '#BCBDBF',
+                    emptySpace: '#E6EBF2'
+                }
+            }); // Call API of static method
+            // 토스트 그리드 끝
+        });
+    </script>
+</head>
+<body>
+    <div id="grid"></div> <!-- 그리드 div -->
+</body>
+<link rel="stylesheet" href="../share/css/tui-custom.css" />
+</html>
