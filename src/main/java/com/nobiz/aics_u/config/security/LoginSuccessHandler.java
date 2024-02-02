@@ -41,7 +41,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
     private static final String DEFAULT_URL = "/clip-srch";
     private static final String LOGIN_URL = "/login-page";
-
     private final MenuMapper menuMapper;
     private final LoginHistMapper loginHistMapper;
 
